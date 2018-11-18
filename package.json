@@ -4,7 +4,7 @@
   "description": "这是 GuaUI",
   "main": "index.js",
   "scripts": {
-    "rp": ".\\node_modules\\.bin\\parcel index.html --no-cache",
+    "parcel": ".\\node_modules\\.bin\\parcel index.html --no-cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

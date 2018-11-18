@@ -10,7 +10,9 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     #app { margin: 20px; }
     body {
-      font-size: var(--font-size); }
+      font-size: var(--font-size);
+      font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeitiSC-Light","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    }
 
     html {
       --button-height: 32px;
@@ -23,11 +25,19 @@
       --border-color-hover: #666;
     }
   </style>
+
+  <style>
+    .icon { width: 1em; height: 1em; }
+  </style>
 </head>
 <body>
   <div id="app">
-  你好, 请点击 <gua-button></gua-button>
+    <gua-button>使用 Javascript</gua-button>
+    <gua-button icon="settings">使用 Javascript</gua-button>
+    <gua-button icon="settings" icon-position="left">使用 Javascript</gua-button>
+    <gua-button icon="settings" icon-position="right">使用 Javascript</gua-button>
   </div>
   <script src="./src/app.js"></script>
+  <script src="//at.alicdn.com/t/font_923980_wet0ro5w71b.js"></script>
 </body>
 </html>
