@@ -1,8 +1,6 @@
 <template>
   <button class="gua-button" :class="{[`icon-${iconPosition}`]: true}">
-    <svg v-if="icon" class="icon">
-      <use :xlink:href="`#i-${icon}`"></use>
-    </svg>
+    <gua-icon v-if="icon" :name="icon" class="icon"></gua-icon>
     <div class="content">
       <slot></slot>
     </div>
