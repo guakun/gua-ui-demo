@@ -1,5 +1,6 @@
 <template>
   <button class="gua-button" :class="{[`icon-${iconPosition}`]: true}">
+    <gua-icon name="loading" class="loading"></gua-icon>
     <gua-icon v-if="icon" :name="icon" class="icon"></gua-icon>
     <div class="content">
       <slot></slot>
@@ -22,6 +23,10 @@
   }
 </script>
 <style lang="scss">
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
 .gua-button { font-size: var(--font-size); height: var(--button-height); padding: 0 1em; font-family: inherit;
   border-radius: var(--border-radius); border: 1px solid var(--border-color); background: var(--button-bg);
   display: inline-flex; justify-content: center; align-items: center; vertical-align: middle;
@@ -31,5 +36,6 @@
   > .icon { order: 1; margin-right: .3em; }
   > .content { order: 2; }
   &.icon-right { >.content { order: 1; } > .icon { order: 2; margin-left: .3em; margin-right: 0; } }
+  .loading { animation: spin .7s infinite linear; }
 }
 </style>
