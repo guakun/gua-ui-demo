@@ -29,14 +29,17 @@
 </head>
 <body>
   <div id="app">
-    <gua-button>使用 Javascript</gua-button>
-    <!-- <gua-button icon="settings">使用 Javascript</gua-button> -->
-    <!-- <gua-button icon="settings" icon-position="left">使用 Javascript</gua-button> -->
-    <!-- <gua-button icon="settings" icon-position="right">使用 Javascript</gua-button> -->
-    <gua-button icon="settings" icon-position="right">使用 Javascript</gua-button>
-    <gua-icon name="loading"></gua-icon>
+    <!-- <gua-button :loading="loading1" @click="loading1 = !loading1">使用 Javascript</gua-button> -->
+    <!-- <gua-button :loading="loading1" icon="settings" @click="loading1 = !loading1">使用 Javascript</gua-button> -->
+    <!-- <gua-button icon-position="left">使用 Javascript</gua-button> -->
+    <!-- <gua-button :loading="true" icon="settings" icon-position="right">使用 Javascript</gua-button> -->
+    <!-- <gua-icon name="loading"></gua-icon> -->
+    <gua-button-group>
+      <gua-button icon="left"></gua-button>
+      <gua-button icon="right"></gua-button>
+    </gua-button-group>
   </div>
   <script src="./src/app.js"></script>
-  <script src="//at.alicdn.com/t/font_923980_ry5jwg4qbnp.js"></script>
+  <script src="//at.alicdn.com/t/font_923980_zf3382cn5h8.js"></script>
 </body>
 </html>

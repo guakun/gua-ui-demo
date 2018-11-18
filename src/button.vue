@@ -1,7 +1,8 @@
 <template>
-  <button class="gua-button" :class="{[`icon-${iconPosition}`]: true}">
-    <gua-icon name="loading" class="loading"></gua-icon>
-    <gua-icon v-if="icon" :name="icon" class="icon"></gua-icon>
+  <button class="gua-button" :class="{[`icon-${iconPosition}`]: true}"
+          @click="$emit('click')">
+    <gua-icon v-if="icon && !loading" :name="icon" class="icon"></gua-icon>
+    <gua-icon v-if="loading" name="loading" class="loading icon"></gua-icon>
     <div class="content">
       <slot></slot>
     </div>
@@ -12,6 +13,10 @@
     // props: ['icon', 'iconPosition']
     props: {
       icon: {},
+      loading: {
+        type: Boolean,
+        default: false
+      },
       iconPosition: {
         type: String,
         default: 'left',
@@ -36,6 +41,6 @@
   > .icon { order: 1; margin-right: .3em; }
   > .content { order: 2; }
   &.icon-right { >.content { order: 1; } > .icon { order: 2; margin-left: .3em; margin-right: 0; } }
-  .loading { animation: spin .7s infinite linear; }
+  .loading { animation: spin .7s infinite linear; fill: var(--border-color); }
 }
 </style>

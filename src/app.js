@@ -6,5 +6,8 @@ Vue.component('gua-button', Button)
 Vue.component('gua-icon', Icon)
 
 new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    loading1: false
+  }
 })
