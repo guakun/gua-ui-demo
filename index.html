@@ -23,6 +23,7 @@
       --color: #333;
       --border-color: #999;
       --border-color-hover: #666;
+      --border-color-hover: #cd0000;
     }
   </style>
 
@@ -35,8 +36,9 @@
     <!-- <gua-button :loading="true" icon="settings" icon-position="right">使用 Javascript</gua-button> -->
     <!-- <gua-icon name="loading"></gua-icon> -->
     <gua-button-group>
-      <gua-button icon="left"></gua-button>
-      <gua-button icon="right"></gua-button>
+      <gua-button icon="left">上一页</gua-button>
+      <gua-button>更多</gua-button>
+      <gua-button icon="right" icon-position="right">下一页</gua-button>
     </gua-button-group>
   </div>
   <script src="./src/app.js"></script>
