@@ -4,6 +4,7 @@
   "description": "这是 GuaUI",
   "main": "index.js",
   "scripts": {
+    "rp": ".\\node_modules\\.bin\\parcel index.html --no-cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,9 +24,16 @@
   },
   "homepage": "https://github.com/guakun/gua-ui-demo#readme",
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "vue-hot-reload-api": "^2.3.1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.10.3"
+    "@vue/component-compiler-utils": "^2.3.0",
+    "parcel-bundler": "^1.10.3",
+    "sass": "^1.15.1",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }
