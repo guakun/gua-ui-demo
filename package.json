@@ -1,13 +1,14 @@
 {
   "name": "gua-test-guaui-1",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "这是 GuaUI",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "parcel": ".\\node_modules\\.bin\\parcel index.html --no-cache",
     "test": "parcel build test/* --no-minify && karma start --single-run",
     "dev-test": "parcel watch test/* --no-cache",
-    "karma": "karma start"
+    "karma": "karma start",
+    "build": "parcel build index.js --no-cache --no-minify"
   },
   "repository": {
     "type": "git",
