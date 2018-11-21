@@ -9,23 +9,34 @@
   </button>
 </template>
 <script>
-  export default {
-    // props: ['icon', 'iconPosition']
-    props: {
-      icon: {},
-      loading: {
-        type: Boolean,
-        default: false
-      },
-      iconPosition: {
-        type: String,
-        default: 'left',
-        validator (value) {
-          return value === 'left' || value === 'right'
-        }
+// 全局注册 - 为了通过测试用例
+  // import Vue from 'vue'
+  // import Icon from './icon'
+
+  // Vue.component('gua-icon', Icon)
+
+import GuaIcon from './icon'
+
+export default {
+  // props: ['icon', 'iconPosition']
+  components: {
+    GuaIcon
+  },
+  props: {
+    icon: {},
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    iconPosition: {
+      type: String,
+      default: 'left',
+      validator (value) {
+        return value === 'left' || value === 'right'
       }
     }
   }
+}
 </script>
 <style lang="scss">
 @keyframes spin {
