@@ -4,7 +4,7 @@
   "description": "这是 GuaUI",
   "main": "dist/index.js",
   "scripts": {
-    "parcel": ".\\node_modules\\.bin\\parcel index.html --no-cache",
+    "start": ".\\node_modules\\.bin\\parcel index.html --no-cache",
     "test": "parcel build test/* --no-minify && karma start --single-run",
     "dev-test": "parcel watch test/* --no-cache",
     "karma": "karma start",

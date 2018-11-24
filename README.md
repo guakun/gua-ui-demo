@@ -53,7 +53,7 @@
       }
     }
     ```
-4. 引入 svg symbols
+4. 引入 svg symbols (现在你可以不做这件事啦啦啦)
 
     ```html
     <script src="//at.alicdn.com/t/font_923980_zf3382cn5h8.js"></script>
