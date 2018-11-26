@@ -26,10 +26,24 @@
     }
   </style>
 
+  <style>
+    .box {
+      margin: 20px;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    <gua-button :loading="true"></gua-button>
+    <div class="box">
+      <gua-input value="张三" disabled></gua-input>
+      <gua-input value="李四" readonly></gua-input>
+    </div>
+    <div class="box">
+      <gua-input value="王五" error="姓名不能少于两个字"></gua-input>
+    </div>
+    <div class="box">
+      <gua-input value="王五"></gua-input>
+    </div>
   </div>
   <script src="./src/app.js"></script>
 </body>
