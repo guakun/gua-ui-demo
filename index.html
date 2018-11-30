@@ -31,50 +31,51 @@
       margin: 20px;
     }
   </style>
+  <style>
+    img { max-width: 100%; }
+    .demoBox {
+      min-height: 50px; background:grey;
+      border: 1px solid red;
+    }
+    .logo-wrapper {
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    <div style="border: 1px solid black;">
-      <gua-row gutter="20">
-        <gua-col>1</gua-col>
-        <gua-col>2</gua-col>
-      </gua-row>
-      <gua-row gutter="30">
-        <gua-col span="2">1</gua-col>
-        <gua-col span="12">2</gua-col>
-        <gua-col span="10">2</gua-col>
-      </gua-row>
-      <gua-row>
-        <gua-col span="2">1</gua-col>
-        <gua-col span="20" offset="2">2</gua-col>
-      </gua-row>
-      <gua-row>
-        <gua-col>1</gua-col>
-        <gua-col>2</gua-col>
-        <gua-col>3</gua-col>
-      </gua-row>
-      <gua-row gutter="20">
-        <gua-col span="4">1</gua-col>
-        <gua-col span="8" offset="2">2</gua-col>
-        <gua-col span="8" offset="2">3</gua-col>
-      </gua-row>
-      <gua-row>
-        <gua-col span="4">1</gua-col>
-        <gua-col span="8" offset="2">2</gua-col>
-        <gua-col span="8" offset="2">3</gua-col>
-      </gua-row>
-      <gua-row>
-        <gua-col span="4">1</gua-col>
-        <gua-col span="9" offset="1">2</gua-col>
-        <gua-col span="8" offset="2">3</gua-col>
-      </gua-row>
-      <gua-row>
-        <gua-col>1</gua-col>
-        <gua-col>2</gua-col>
-        <gua-col>3</gua-col>
-        <gua-col>4</gua-col>
-      </gua-row>
-    </div>
+    <gua-row class="topbar">
+      <gua-col class="demoBox" span="9">
+        <gua-row align="left">
+          <gua-col style="width: 50px;">1</gua-col>
+          <gua-col>2</gua-col>
+          <gua-col>3</gua-col>
+          <gua-col>4</gua-col>
+        </gua-row>
+      </gua-col>
+      <gua-col class="demoBox" span="15">
+        <gua-row align="right">
+          <gua-col>1</gua-col>
+          <gua-col>2</gua-col>
+          <gua-col>3</gua-col>
+          <gua-col>4</gua-col>
+          <gua-col>5</gua-col>
+          <gua-col>6</gua-col>
+          <gua-col>7</gua-col>
+        </gua-row>
+      </gua-col>
+    </gua-row>
+    <gua-row class="logo-and-search-and-qrcode">
+      <gua-col class="demoBox" span="4">
+        <gua-row align="center">
+          <gua-col class="logo-wrapper">
+            <img src="https://img.alicdn.com/tfs/TB1_uT8a5ERMeJjSspiXXbZLFXa-143-59.png" class="logo" alt="">
+          </gua-col>
+        </gua-row>
+      </gua-col>
+      <gua-col class="demoBox" span="14"></gua-col>
+      <gua-col class="demoBox" span="6"></gua-col>
+    </gua-row>
   </div>
   <script src="./src/app.js"></script>
 </body>
