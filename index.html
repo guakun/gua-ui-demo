@@ -34,16 +34,25 @@
 </head>
 <body>
   <div id="app">
-    <div class="box">
-      <gua-input value="张三" disabled></gua-input>
-      <gua-input value="李四" readonly></gua-input>
-    </div>
-    <div class="box">
-      <gua-input value="王五" @change="inputChange" error="姓名不能少于两个字"></gua-input>
-    </div>
-    <div class="box">
-      <gua-input value="王五"></gua-input>
-    </div>
+    <gua-row>
+      <gua-col>1</gua-col>
+      <gua-col>2</gua-col>
+    </gua-row>
+    <gua-row>
+      <gua-col span="2">1</gua-col>
+      <gua-col span="22">2</gua-col>
+    </gua-row>
+    <gua-row>
+      <gua-col>1</gua-col>
+      <gua-col>2</gua-col>
+      <gua-col>3</gua-col>
+    </gua-row>
+    <gua-row>
+      <gua-col>1</gua-col>
+      <gua-col>2</gua-col>
+      <gua-col>3</gua-col>
+      <gua-col>4</gua-col>
+    </gua-row>
   </div>
   <script src="./src/app.js"></script>
 </body>
