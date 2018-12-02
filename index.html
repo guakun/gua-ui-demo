@@ -8,7 +8,6 @@
   <title>GuaUI</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    #app { margin: 20px; }
     body {
       font-size: var(--font-size);
       font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeitiSC-Light","Microsoft YaHei","微软雅黑",Arial,sans-serif;
@@ -30,17 +29,26 @@
     .demo {
       background: #ddd;
       border: 1px solid #666;
-      height: 100px;
+      min-height: 100px;
     }
   </style>
 </head>
 <body>
   <div id="app">
-    <gua-row align="center">
-      <gua-col span="23" offset="1" :narrow-pc="{span: 12, offset: 12}" :wide-pc="{span: 12, offset: 13}">
-        <div class="demo"></div>
-      </gua-col>
-    </gua-row>
+
+    <!-- <gua-layout class="demo" style="height: 100vh;">
+      <gua-header class="demo">我是 Header 呀</gua-header>
+      <gua-content class="demo">我是 content 呀</gua-content>
+      <gua-footer class="demo">我是 footer 呀</gua-footer>
+    </gua-layout> -->
+    <gua-layout class="demo" style="height: 100vh;">
+      <gua-sider class="demo">我是 sider 呀</gua-sider>
+      <gua-layout class="demo">
+        <gua-header class="demo">我是 Header 呀</gua-header>
+        <gua-content class="demo">我是 content 呀</gua-content>
+        <gua-footer class="demo">我是 footer 呀</gua-footer>
+      </gua-layout>
+    </gua-layout>
   </div>
   <script src="./src/app.js"></script>
 </body>
