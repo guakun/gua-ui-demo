@@ -82,6 +82,7 @@ export default {
     },
     close () {
       this.$el.remove()
+      this.$emit('close')
       this.$destroy()
     }
   }
@@ -89,10 +90,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @keyframes fade-in { 0% { opacity: 0; transform: translateY(100%);} 100% { opacity: 1; transform: translateY(0); }}
   $font-size: 14px;
   $toast-min-height: 40px;
   $toast-bg: rgba( 0, 0, 0, .75);
   .toast {
+    animation: fade-in 1s;
     font-size: $font-size; line-height: 1.8; min-height: $toast-min-height; border-radius: 4px;
     position: fixed; left: 50%; display: flex; align-items: center;
     background: $toast-bg; color: white; padding: 0 16px; box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
