@@ -32,26 +32,23 @@ new Vue({
   el: '#app',
   data: {},
   created () {
-    // this.$toast('<p>段落 <strong>加粗文字</strong> <a href="http://qq.com">qq</a></p>', {
-    //   position: 'middle',
-    //   enableHtml: true,
-    //   closeButton: {
-    //     text: '知道了',
-    //     callback (toast) {
-    //       console.log('用户说他知道了')
-    //       toast.log()
-    //     }
-    //   },
-    //   autoClose: true,
-    //   autoCloseDelay: 100000
-    // })
-    // this.$toast('当前功能', {})
   },
   methods: {
-    showToast () {
-      this.$toast(`你的智商余额还剩${parseInt(Math.random() * 100)}`, {
+    showToast1 () { this.showToast('top') },
+    showToast2 () { this.showToast('middle') },
+    showToast3 () { this.showToast('bottom') },
+    showToast (position) {
+      this.$toast(`你的余额还剩${parseInt(Math.random() * 100)}。 请及时充值。`, {
+        position,
+        enableHtml: false,
+        closeButton: {
+          text: '已充值',
+          callback () {
+            console.log('他说他充值了')
+          }
+        },
+        autoClose: false,
         autoCloseDelay: 3,
-        position: 'middle'
       })
     }
   }
