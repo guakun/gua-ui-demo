@@ -47,8 +47,7 @@ new Vue({
             console.log('他说他充值了')
           }
         },
-        autoClose: false,
-        autoCloseDelay: 3,
+        autoClose: false
       })
     }
   }
