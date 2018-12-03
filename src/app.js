@@ -31,10 +31,22 @@ Vue.use(plugin)
 new Vue({
   el: '#app',
   data: {},
+  created () {
+    this.$toast('<p>段落 <strong>加粗文字</strong> <a href="http://qq.com">qq</a></p>', {
+      closeButton: {
+        text: '知道了',
+        callback (toast) {
+          console.log('用户说他知道了')
+          toast.log()
+        }
+      },
+      enableHtml: true
+    })
+    // this.$toast('当前功能', {})
+  },
   methods: {
     showToast () {
-      // this.$toast('当前功能不稳定, 如果遇到 bug 请关闭该功能。')
-      this.$toast('我是 bug')
+      this.$toast('当前功能不稳定, 如果遇到 bug 请关闭该功能。', {})
     }
   }
 })
