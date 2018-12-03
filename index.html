@@ -33,9 +33,34 @@
 </head>
 <body>
   <div id="app">
-    <gua-button @click="showToast1">top</gua-button>
-    <gua-button @click="showToast2">middle</gua-button>
-    <gua-button @click="showToast3">bottom</gua-button>
+    <gua-tabs :selected.sync="selectedTab">
+      <gua-tabs-head>
+        <template slot="actions">
+          <gua-button>设置</gua-button>
+        </template>
+        <gua-tabs-item name="html" disabled>
+          <gua-icon name="yigouxuan"></gua-icon>
+          html
+        </gua-tabs-item>
+        <gua-tabs-item name="css">
+          css
+        </gua-tabs-item>
+        <gua-tabs-item name="javascript">
+          javascript
+        </gua-tabs-item>
+      </gua-tabs-head>
+      <gua-tabs-body>
+        <gua-tabs-pane name="html">
+          html5 权威指南
+        </gua-tabs-pane>
+        <gua-tabs-pane name="css">
+          CSS 世界
+        </gua-tabs-pane>
+        <gua-tabs-pane name="javascript">
+          你不知道的 javascript
+        </gua-tabs-pane>
+      </gua-tabs-body>
+    </gua-tabs>
   </div>
   <script src="./src/app.js"></script>
 </body>

@@ -12,6 +12,11 @@ import Content from './content'
 import Footer from './footer'
 import Toast from './toast'
 import plugin from './plugin'
+import Tabs from './tabs'
+import TabsHead from './tabs-head'
+import TabsBody from './tabs-body'
+import TabsItem from './tabs-item'
+import TabsPane from './tabs-pane'
 
 Vue.component('gua-button', Button)
 Vue.component('gua-icon', Icon)
@@ -25,30 +30,23 @@ Vue.component('gua-sider', Sider)
 Vue.component('gua-content', Content)
 Vue.component('gua-footer', Footer)
 Vue.component('gua-toast', Toast)
+Vue.component('gua-tabs', Tabs)
+Vue.component('gua-tabs-head', TabsHead)
+Vue.component('gua-tabs-body', TabsBody)
+Vue.component('gua-tabs-item', TabsItem)
+Vue.component('gua-tabs-pane', TabsPane)
 
 Vue.use(plugin)
 
 new Vue({
   el: '#app',
-  data: {},
+  data () {
+    return {
+      selectedTab: 'javascript'
+    }
+  },
   created () {
   },
   methods: {
-    showToast1 () { this.showToast('top') },
-    showToast2 () { this.showToast('middle') },
-    showToast3 () { this.showToast('bottom') },
-    showToast (position) {
-      this.$toast(`你的余额还剩${parseInt(Math.random() * 100)}。 请及时充值。`, {
-        position,
-        enableHtml: false,
-        closeButton: {
-          text: '已充值',
-          callback () {
-            console.log('他说他充值了')
-          }
-        },
-        autoClose: false
-      })
-    }
   }
 })
