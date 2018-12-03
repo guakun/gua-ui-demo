@@ -21,7 +21,6 @@ export default {
     this.eventBus.$on('update:selected', (name, vm) => {
       this.x = true
       // 新增一个 [更新UI任务] 到任务队列里面
-      console.log(this.x)
       this.$nextTick(() => {
         let { width, height, top, left } = vm.$el.getBoundingClientRect()
         this.$refs.line.style.width = `${width}px`
@@ -36,12 +35,14 @@ export default {
 <style lang="scss" scoped>
   $tab-height: 40px;
   $blue: blue;
+  $border-color: #ddd;
   .tabs-head {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     height: $tab-height;
     position: relative;
+    border-bottom: 1px solid #ddd;
     > .line {
       position: absolute;
       bottom: 0;
