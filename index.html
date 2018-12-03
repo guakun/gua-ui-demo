@@ -26,41 +26,14 @@
   </style>
 
   <style>
-    .demo {
-      background: #ddd;
-      border: 1px solid #666;
-      min-height: 100px;
-    }
-    .sider {
-      background: #333;
-      width: 200px;
-    }
-    .header {
-      background: #999999;
-      height: 100px;
-    }
-    .footer {
-      background: #ccc;
-      height: 50px;
+    #app {
+      margin: 100px;
     }
   </style>
 </head>
 <body>
   <div id="app">
-
-    <!-- <gua-layout class="demo" style="height: 100vh;">
-      <gua-header class="demo">我是 Header 呀</gua-header>
-      <gua-content class="demo">我是 content 呀</gua-content>
-      <gua-footer class="demo">我是 footer 呀</gua-footer>
-    </gua-layout> -->
-    <gua-layout style="height: 100vh;">
-      <gua-sider>我是 sider 呀</gua-sider>
-      <gua-layout>
-        <gua-header>我是 Header 呀</gua-header>
-        <gua-content>我是 content 呀</gua-content>
-        <gua-footer>我是 footer 呀</gua-footer>
-      </gua-layout>
-    </gua-layout>
+    <gua-button @click="showToast">show toast</gua-button>
   </div>
   <script src="./src/app.js"></script>
 </body>

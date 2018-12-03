@@ -10,6 +10,8 @@ import Header from './header'
 import Sider from './sider'
 import Content from './content'
 import Footer from './footer'
+import Toast from './toast'
+import plugin from './plugin'
 
 Vue.component('gua-button', Button)
 Vue.component('gua-icon', Icon)
@@ -22,13 +24,17 @@ Vue.component('gua-header', Header)
 Vue.component('gua-sider', Sider)
 Vue.component('gua-content', Content)
 Vue.component('gua-footer', Footer)
+Vue.component('gua-toast', Toast)
+
+Vue.use(plugin)
 
 new Vue({
   el: '#app',
   data: {},
   methods: {
-    inputChange (e) {
-      console.log(e.target.value)
+    showToast () {
+      // this.$toast('当前功能不稳定, 如果遇到 bug 请关闭该功能。')
+      this.$toast('我是 bug')
     }
   }
 })
