@@ -33,6 +33,8 @@ new Vue({
   data: {},
   created () {
     this.$toast('<p>段落 <strong>加粗文字</strong> <a href="http://qq.com">qq</a></p>', {
+      position: 'middle',
+      enableHtml: true,
       closeButton: {
         text: '知道了',
         callback (toast) {
@@ -40,9 +42,10 @@ new Vue({
           toast.log()
         }
       },
-      enableHtml: true
+      autoClose: true,
+      autoCloseDelay: 100000
     })
-    // this.$toast('当前功能', {})
+    this.$toast('当前功能', {})
   },
   methods: {
     showToast () {
