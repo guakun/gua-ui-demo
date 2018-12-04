@@ -28,6 +28,10 @@ export default {
     }
   },
   mounted () {
+    if (this.$children.length === 0) {
+      // throw new Error('tabs 的子组件应该是 tabs-head 和 tabs-body 但你没有子组件')
+      console && console.warn && console.warn('tabs 的子组件应该是 tabs-head 和 tabs-body 但你没有子组件')
+    }
     this.$children.forEach(vm => {
       if (vm.$options.name === 'GuaTabsHead') {
         vm.$children.forEach(childVm => {
