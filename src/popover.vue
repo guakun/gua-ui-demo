@@ -29,22 +29,28 @@ export default {
     positionContent () {
       const {contentWrapper, triggerWrapper} = this.$refs
       document.body.appendChild(contentWrapper)
-      let { width, height, top, left } = triggerWrapper.getBoundingClientRect()
-      if (this.position === 'top') {
-        contentWrapper.style.left = `${window.scrollX + left}px`
-        contentWrapper.style.top = `${window.scrollY + top}px`
-      } else if (this.position === 'bottom') {
-        contentWrapper.style.left = `${window.scrollX + left}px`
-        contentWrapper.style.top = `${window.scrollY + height + top}px`
-      } else if (this.position === 'left') {
-        contentWrapper.style.left = `${window.scrollX + left}px`
-        let { height: height2 } = contentWrapper.getBoundingClientRect()
-        contentWrapper.style.top = `${window.scrollY + (height - height2) / 2 + top}px`
-      } else if (this.position === 'right') {
-        contentWrapper.style.left = `${window.scrollX + left + width}px`
-        let { height: height2 } = contentWrapper.getBoundingClientRect()
-        contentWrapper.style.top = `${window.scrollY + (height - height2) / 2 + top}px`
+      const { width, height, top, left } = triggerWrapper.getBoundingClientRect()
+      const { height: height2 } = contentWrapper.getBoundingClientRect()
+      let positions = {
+        top: {
+          top: top + window.scrollY,
+          left: window.scrollX + left,
+        },
+        bottom: {
+          top: window.scrollY + height + top,
+          left: window.scrollX + left,
+        },
+        left: {
+          top: window.scrollY + (height - height2) / 2 + top,
+          left: window.scrollX + left,
+        },
+        right: {
+          top: window.scrollY + (height - height2) / 2 + top,
+          left: window.scrollX + left + width,
+        },
       }
+      contentWrapper.style.left = positions[this.position].left + 'px'
+      contentWrapper.style.top = positions[this.position].top + 'px'
     },
     onClickDocument (e) {
       if (this.$refs.popover &&
