@@ -31,4 +31,26 @@ describe("Popover", () => {
       done()
     })
   })
+  xit("可以设置trigger.", (done) => {
+    Vue.component('gua-popover', Popover)
+    const div = document.createElement('div')
+    document.body.append(div)
+    div.innerHTML = `
+      <gua-popover position="bottom" ref="a" trigger="hover">
+        <template slot="content">弹出内容</template>
+        <button>点我</button>
+      </gua-popover>
+    `
+
+    const vm = new Vue({
+      el: div
+    })
+    let event = new Event('mouseenter')
+    vm.$el.dispatchEvent(event)
+    vm.$nextTick(() => {
+      const { contentWrapper } = vm.$refs.a.$refs
+      expect(contentWrapper).to.be.true
+      done()
+    })
+  })
 })
