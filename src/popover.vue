@@ -140,6 +140,7 @@ export default {
       margin-top: -10px;
       &:before, &::after {
         left: 10px;
+        border-bottom: none;
       }
       &:before {
         border-top-color: $border-color;
@@ -154,6 +155,7 @@ export default {
       margin-top: 10px;
       &:before, &::after {
         left: 10px;
+        border-top: none;
       }
       &:before {
         border-bottom-color: $border-color;
@@ -170,6 +172,7 @@ export default {
       &:before, &::after {
         top: 50%;
         transform: translateY(-50%);
+        border-right: none;
       }
       &:before {
         border-left-color: $border-color;
@@ -185,6 +188,7 @@ export default {
       &:before, &::after {
         transform: translateY(-50%);
         top: 50%;
+        border-left: none;
       }
       &:before {
         border-right-color: $border-color;
