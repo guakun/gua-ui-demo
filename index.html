@@ -35,9 +35,10 @@
   <div id="app">
     <div style="padding-top: 12px; overflow: hidden; padding-top: 40px;">
       <gua-popover position="bottom">
-        <template slot="content">
+        <template slot="content" slot-scope="{close}">
           <div>asdasdhjahsfhjhaslkasfhklhfasklashfklhfasklfashlafkshjfkasjklfasjkl</div>
           <div>asdasdhjahsfhjhaslkasfhklhfasklashfklhfasklfashlafkshjfkasjklfasjkl</div>
+          <gua-button @click="close">关闭</gua-button>
         </template>
         <template>
           <gua-button>点我</button>
