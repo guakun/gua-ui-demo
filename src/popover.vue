@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" @click="onClick" ref="popover">
+  <div class="popover" ref="popover">
     <div ref="contentWrapper" class="content-wrapper" v-if="visible"
       :class="{[`position-${position}`]: true}">
       <slot name="content"></slot>
@@ -20,10 +20,35 @@ export default {
       validator (value) {
         return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
       }
+    },
+    trigger: {
+      type: String,
+      default: 'click',
+      validator (value) {
+        return ['click', 'hover'].indexOf(value) >= 0
+      }
     }
   },
   data () {
-    return { visible: false }
+    return {
+      visible: false,
+    }
+  },
+  mounted () {
+    if (this.trigger == 'click') {
+      this.$refs.popover.addEventListener('click', this.onClick)
+    } else {
+      this.$refs.popover.addEventListener('mouseenter', this.open)
+      this.$refs.popover.addEventListener('mouseleave', this.close)
+    }
+  },
+  destroyed () {
+    if (this.trigger == 'click') {
+      this.$refs.popover.removeEventListener('click', this.onClick)
+    } else {
+      this.$refs.popover.removeEventListener('mouseenter', this.open)
+      this.$refs.popover.removeEventListener('mouseleave', this.close)
+    }
   },
   methods: {
     positionContent () {
@@ -98,7 +123,6 @@ export default {
     position: absolute;
     border: 1px solid $border-color;
     border-radius: $border-radius;
-    // box-shadow: 0 0 3px rgba(0 , 0, 0, 0.5);
     filter: drop-shadow(0 1px 1px rgba(0 , 0, 0, 0.5));
     background: #fff;
     padding: .5em 1em;
