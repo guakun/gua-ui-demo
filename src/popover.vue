@@ -1,9 +1,12 @@
 <template>
   <div class="popover" @click.stop="xxx">
-    <div class="content-wrapper" v-if="visible" @click.stop>
+    <div ref="contentWrapper" class="content-wrapper"
+      v-if="visible">
       <slot name="content"></slot>
     </div>
-    <slot></slot>
+    <span ref="triggerWrapper">
+      <slot></slot>
+    </span>
   </div>
 </template>
 
@@ -13,17 +16,22 @@ export default {
   data () {
     return { visible: false }
   },
+  mounted () {
+    console.log(this.$refs.triggerWrapper)
+  },
   methods: {
     xxx () {
       this.visible = !this.visible
-      console.log('切换 visivle')
       if (this.visible === true) {
         this.$nextTick(() => {
-          console.log('新增 document click 监听器')
+          document.body.appendChild(this.$refs.contentWrapper)
+          let { width, height, top, left } = this.$refs.triggerWrapper.getBoundingClientRect()
+          console.log( width, height, top, left )
+          this.$refs.contentWrapper.style.left = `${window.scrollX + left}px`
+          this.$refs.contentWrapper.style.top = `${window.scrollY + top}px`
+
           let eventHandler = () => {
-            console.log('document 隐藏 popover')
             this.visible = false
-            console.log('删除 document click 监听器')
             document.removeEventListener('click', eventHandler)
           }
 
@@ -42,11 +50,15 @@ export default {
     display: inline-block;
     vertical-align: top;
     position: relative;
-    .content-wrapper {
-      position: absolute;
-      bottom: 100%; left: 0;
-      border: 1px solid red;
-      box-shadow: 0 0 3px rgba(0 , 0, 0, 0.5);
+
+    > span {
+      display: inline-block;
     }
+  }
+  .content-wrapper {
+    position: absolute;
+    border: 1px solid red;
+    box-shadow: 0 0 3px rgba(0 , 0, 0, 0.5);
+    transform: translateY(-100%);
   }
 </style>
