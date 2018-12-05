@@ -24,6 +24,8 @@ export default {
     if (this.single) {
       return { eventBus: this.eventBus }
     }
+  },
+  mounted () {
   }
 }
 </script>

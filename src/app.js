@@ -48,7 +48,7 @@ new Vue({
   el: '#app',
   data () {
     return {
-      selectedTab: 'javascript'
+      selectedTab: '名字2'
     }
   },
   created () {
