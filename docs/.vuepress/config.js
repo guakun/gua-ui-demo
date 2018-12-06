@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/gua-ui-demo/',
   title: 'Gua UI',
   description: '这条信息会展示在 meta 里面',
   themeConfig: {
