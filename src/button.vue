@@ -3,22 +3,15 @@
           @click="$emit('click')">
     <gua-icon v-if="icon && !loading" :name="icon" class="icon"></gua-icon>
     <gua-icon v-if="loading" name="loading" class="loading icon"></gua-icon>
-    <div class="content">
+    <div class="g-button-content">
       <slot></slot>
     </div>
   </button>
 </template>
 <script>
-// 全局注册 - 为了通过测试用例
-  // import Vue from 'vue'
-  // import Icon from './icon'
-
-  // Vue.component('gua-icon', Icon)
-
 import GuaIcon from './icon'
 
 export default {
-  // props: ['icon', 'iconPosition']
   components: {
     GuaIcon
   },
@@ -38,20 +31,28 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+$font-size: 14px;
+$button-height: 32px;
+$button-bg: white;
+$button-active-bg: #eee;
+$border-radius: 4px;
+$color: #333;
+$border-color: #999;
+$border-color-hover: #666;
 @keyframes spin {
   0% { transform: rotate(0); }
   100% { transform: rotate(360deg); }
 }
-.gua-button { font-size: var(--font-size); height: var(--button-height); padding: 0 1em; font-family: inherit;
-  border-radius: var(--border-radius); border: 1px solid var(--border-color); background: var(--button-bg);
+.gua-button { font-size: $font-size; height: $button-height; padding: 0 1em; font-family: inherit;
+  border-radius: $border-radius; border: 1px solid $border-color; background: $button-bg;
   display: inline-flex; justify-content: center; align-items: center; vertical-align: middle;
-  &:hover { border-color: var(--border-color-hover); }
-  &:active { background: var(--button-active-bg); }
+  &:hover { border-color: $border-color-hover; }
+  &:active { background: $button-active-bg; }
   &:focus { outline: none; }
   > .icon { order: 1; margin-right: .3em; }
-  > .content { order: 2; }
+  > .g-button-content { order: 2;}
   &.icon-right { >.content { order: 1; } > .icon { order: 2; margin-left: .3em; margin-right: 0; } }
-  .loading { animation: spin .7s infinite linear; fill: var(--border-color); }
+  .loading { animation: spin .7s infinite linear; fill: $border-color; }
 }
 </style>

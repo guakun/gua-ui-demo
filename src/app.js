@@ -10,6 +10,16 @@ import Header from './header'
 import Sider from './sider'
 import Content from './content'
 import Footer from './footer'
+import Toast from './toast'
+import plugin from './plugin'
+import Tabs from './tabs'
+import TabsHead from './tabs-head'
+import TabsBody from './tabs-body'
+import TabsItem from './tabs-item'
+import TabsPane from './tabs-pane'
+import Popover from './popover'
+import Collapse from './collapse'
+import CollapseItem from './collapse-item'
 
 Vue.component('gua-button', Button)
 Vue.component('gua-icon', Icon)
@@ -22,13 +32,27 @@ Vue.component('gua-header', Header)
 Vue.component('gua-sider', Sider)
 Vue.component('gua-content', Content)
 Vue.component('gua-footer', Footer)
+Vue.component('gua-toast', Toast)
+Vue.component('gua-tabs', Tabs)
+Vue.component('gua-tabs-head', TabsHead)
+Vue.component('gua-tabs-body', TabsBody)
+Vue.component('gua-tabs-item', TabsItem)
+Vue.component('gua-tabs-pane', TabsPane)
+Vue.component('gua-popover', Popover)
+Vue.component('gua-collapse', Collapse)
+Vue.component('gua-collapse-item', CollapseItem)
+
+Vue.use(plugin)
 
 new Vue({
   el: '#app',
-  data: {},
-  methods: {
-    inputChange (e) {
-      console.log(e.target.value)
+  data () {
+    return {
+      selectedTab: ['名字2', '名字3']
     }
+  },
+  created () {
+  },
+  methods: {
   }
 })

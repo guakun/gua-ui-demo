@@ -26,41 +26,19 @@
   </style>
 
   <style>
-    .demo {
-      background: #ddd;
-      border: 1px solid #666;
-      min-height: 100px;
-    }
-    .sider {
-      background: #333;
-      width: 200px;
-    }
-    .header {
-      background: #999999;
-      height: 100px;
-    }
-    .footer {
-      background: #ccc;
-      height: 50px;
+    #app {
+      padding: 100px 100px;
     }
   </style>
 </head>
 <body>
   <div id="app">
-
-    <!-- <gua-layout class="demo" style="height: 100vh;">
-      <gua-header class="demo">我是 Header 呀</gua-header>
-      <gua-content class="demo">我是 content 呀</gua-content>
-      <gua-footer class="demo">我是 footer 呀</gua-footer>
-    </gua-layout> -->
-    <gua-layout style="height: 100vh;">
-      <gua-sider>我是 sider 呀</gua-sider>
-      <gua-layout>
-        <gua-header>我是 Header 呀</gua-header>
-        <gua-content>我是 content 呀</gua-content>
-        <gua-footer>我是 footer 呀</gua-footer>
-      </gua-layout>
-    </gua-layout>
+    <gua-collapse :selected.sync="selectedTab">
+      <gua-collapse-item title="标题1" name="名字1">内容1</gua-collapse-item>
+      <gua-collapse-item title="标题2" name="名字2">内容2</gua-collapse-item>
+      <gua-collapse-item title="标题3" name="名字3">内容3</gua-collapse-item>
+    </gua-collapse>
+    {{selectedTab}}
   </div>
   <script src="./src/app.js"></script>
 </body>
