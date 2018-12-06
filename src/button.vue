@@ -3,7 +3,7 @@
           @click="$emit('click')">
     <gua-icon v-if="icon && !loading" :name="icon" class="icon"></gua-icon>
     <gua-icon v-if="loading" name="loading" class="loading icon"></gua-icon>
-    <div class="content">
+    <div class="g-button-content">
       <slot></slot>
     </div>
   </button>
@@ -31,7 +31,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 $font-size: 14px;
 $button-height: 32px;
 $button-bg: white;
@@ -51,7 +51,7 @@ $border-color-hover: #666;
   &:active { background: $button-active-bg; }
   &:focus { outline: none; }
   > .icon { order: 1; margin-right: .3em; }
-  > .content { order: 2; }
+  > .g-button-content { order: 2;}
   &.icon-right { >.content { order: 1; } > .icon { order: 2; margin-left: .3em; margin-right: 0; } }
   .loading { animation: spin .7s infinite linear; fill: $border-color; }
 }
