@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import GButton from './button'
+import GButton from './button/button'
 export default {
     name: 'demo',
     components: {

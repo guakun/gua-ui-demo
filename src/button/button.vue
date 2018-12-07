@@ -9,7 +9,7 @@
   </button>
 </template>
 <script>
-import GuaIcon from './icon'
+import GuaIcon from '../icon'
 
 export default {
   components: {
