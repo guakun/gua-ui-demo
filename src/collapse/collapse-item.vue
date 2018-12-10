@@ -51,8 +51,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  $gray: #ddd;
-  $border-radius: 4px;
   .collapse-item {
     > .title { border: 1px solid $gray; margin: -1px -1px 0 -1px; min-height: 32px; display: flex; align-items: center;
       padding: 0 10px; }

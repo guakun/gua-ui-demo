@@ -38,13 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $height: 32px;
-  $border-color: #999;
-  $border-color-hover: #666;
-  $border-radius: 4px;
-  $font-size: 14px;
-  $box-shadow-color: rgba(0, 0, 0, .5);
-  $red: #F1453D;
+  @import "var";
   .wrapper { font-size: $font-size; display: inline-block; display: inline-flex; align-items: center;
     > :not(:last-child) { margin-right: .5em; }
     > input { height: $height; border: 1px solid $border-color; border-radius: $border-radius;

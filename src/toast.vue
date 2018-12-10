@@ -91,10 +91,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $font-size: 14px;
-  $toast-min-height: 40px;
-  $toast-bg: rgba( 0, 0, 0, .75);
-  $animation-duration: 300ms;
 
   @keyframes slide-down { 0% { opacity: 0; transform: translateY(-100%); } 100% { opacity: 1; transform: translateY(0); }}
   @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; }}
