@@ -9,6 +9,13 @@
 
 <script>
 import GCascader from './cascader/cascader'
+import db from '../tests/fixtures/db'
+
+function ajax (parent_id = 0) {
+  return db.filter((item) => item.parent_id === parent_id)
+}
+
+console.log(ajax())
 
 export default {
   name: 'demo',
@@ -18,41 +25,7 @@ export default {
   data () {
     return {
       selected: [],
-      source: [
-        {
-          name: '浙江',
-          children: [
-            { name: '杭州', children: [
-              { name: '西湖' },
-              { name: '拱墅' },
-              { name: '滨江' },
-            ]},
-            { name: '义乌', children: [
-              {name: '义乌区1'},
-              {name: '义乌区2'},
-              {name: '义乌区3'},
-            ]},
-            { name: '宁波' },
-          ]
-        },
-        {
-          name: '山东',
-          children: [
-            { name: '济南' },
-            { name: '青岛' },
-            { name: '潍坊' },
-          ]
-        },
-        {
-          name: '北京',
-          children: [
-            { name: '大兴' },
-            { name: '五道口' },
-            { name: 'soho' },
-          ]
-        },
-        { name: '广州' }
-      ]
+      source: ajax()
     }
   }
 }

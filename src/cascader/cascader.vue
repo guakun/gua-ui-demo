@@ -59,7 +59,7 @@
       min-width: 10em;
     }
     .popover-wrapper {
-      position: absolute; top: 100%; left: 0; margin-top: 8px;
+      position: absolute; top: 100%; left: 0; margin-top: 4px;
       @extend .box-shadow;
       background: #fff;
       display: flex;
