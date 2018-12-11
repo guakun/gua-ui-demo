@@ -47,6 +47,7 @@ export default {
             { name: 'soho' },
           ]
         },
+        { name: '广州' }
       ]
     }
   }
