@@ -4,7 +4,6 @@
     <p>{{selected && selected[1] && selected[1].name || '空' }}</p>
     <p>{{selected && selected[2] && selected[2].name || '空' }}</p>
     <g-cascader :source="source" popover-height="170px" :selected.sync="selected"></g-cascader>
-    <p>11111</p>
   </div>
 </template>
 
