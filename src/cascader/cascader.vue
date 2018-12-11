@@ -21,23 +21,7 @@
     },
     data () {
       return {
-        popoverVisible: false,
-        level1Selected: null,
-        level2Selected: null
-      }
-    },
-    computed: {
-      level2Items () {
-        if (this.level1Selected) {
-          return this.level1Selected.children
-        }
-        return []
-      },
-      level3Items () {
-        if (this.level2Selected) {
-          return this.level2Selected.children
-        }
-        return []
+        popoverVisible: true
       }
     }
   }
@@ -54,10 +38,6 @@
       border: 2px solid green;
       height: 700px;
       position: relative; display: flex;
-      .label {
-        white-space: nowrap; cursor: pointer;
-      }
     }
-    
   }
 </style>
