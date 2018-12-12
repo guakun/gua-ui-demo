@@ -3,8 +3,8 @@
     <p>{{selected && selected[0] && selected[0].name || '空' }}</p>
     <p>{{selected && selected[1] && selected[1].name || '空' }}</p>
     <p>{{selected && selected[2] && selected[2].name || '空' }}</p>
-    <g-cascader :source="source" popover-height="170px" :selected.sync="selected"
-      @update:selected="xxx"></g-cascader>
+    <g-cascader :source.sync="source" popover-height="170px" :selected.sync="selected"
+      ></g-cascader>
   </div>
 </template>
 
@@ -12,19 +12,19 @@
 import GCascader from './cascader/cascader'
 import db from '../tests/fixtures/db'
 
-function ajax1 (parent_id = 0, success, fail) {
-  let result = db.filter((item) => item.parent_id === parent_id)
-  console.log(success)
-  let id = setTimeout(() => {
-    success(result)
-  }, 3000)
-  return id
-}
-
-function ajax2 (parent_id = 0) {
+function ajax (parent_id = 0) {
   return new Promise((resolve, reject) => {
-    let result = db.filter((item) => item.parent_id === parent_id)
-    resolve(result)
+    setTimeout(() => {
+      let result = db.filter((item) => item.parent_id === parent_id)
+      result.forEach(node => {
+        if (db.filter(item => item.parent_id === node.id).length > 0) {
+          node.isLeaf = false
+        } else {
+          node.isLeaf = true
+        }
+      })
+      resolve(result)
+    }, 20)
   })
 }
 
@@ -40,19 +40,53 @@ export default {
     }
   },
   created () {
-    // ajax1(0, (result) => {
-    //   this.source = result
-    // })
-    ajax2(0).then(result => {
-      this.source = result
-    })
-    ajax2(1).then(result => {
-      console.log(result)
-    })
+    this.source = [
+        {
+          name: '浙江',
+          children: [
+            { name: '杭州', children: [
+              { name: '西湖' },
+              { name: '拱墅' },
+              { name: '滨江' },
+            ]},
+            { name: '义乌', children: [
+              {name: '义乌区1'},
+              {name: '义乌区2'},
+              {name: '义乌区3'},
+            ]},
+            { name: '宁波' },
+          ]
+        },
+        {
+          name: '山东',
+          children: [
+            { name: '济南' },
+            { name: '青岛' },
+            { name: '潍坊' },
+          ]
+        },
+        {
+          name: '北京',
+          children: [
+            { name: '大兴' },
+            { name: '五道口' },
+            { name: 'soho' },
+          ]
+        },
+        { name: '广州' }
+      ]
   },
   methods: {
+    loadData ( {id}, updateSource) {
+      ajax(id).then(result => {
+        updateSource(result)
+      })
+    },
     xxx () {
-      ajax
+      ajax(this.selected[0].id).then(result => {
+        let lastLevelSelected = this.source.filter(item => item.id === this.selected[0].id)[0]
+        this.$set(lastLevelSelected, 'children', result)
+      })
     }
   }
 }

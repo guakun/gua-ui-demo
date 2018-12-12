@@ -2,13 +2,13 @@
   <div class="cascader-item" :style="{height: height}">
     <div class="left">
       <div class="label" v-for="item in items" @click="onClickLabel(item)">
-        {{item.name}}
-        <gua-icon class="icon" v-if="item.children" name="right"></gua-icon>
+        <span class="name">{{item.name}}</span>
+        <gua-icon class="icon" v-if="rightArrowVisible(item)" name="right"></gua-icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <gua-cascader-items :items="rightItems" :height="height" :level="level + 1"
-        :selected="selected" @update:selected="onUpdateSelected"></gua-cascader-items>
+        :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></gua-cascader-items>
     </div>
   </div>
 </template>
@@ -36,16 +36,21 @@ const cascaderItems = {
     level: {
       type: Number,
       default: 0
+    },
+    loadData: {
+      type: Function
     }
   },
   computed: {
     rightItems () {
-      let currentSelected = this.selected[this.level]
-      if (currentSelected && currentSelected.children) {
-        return currentSelected.children
+      if (this.selected[this.level]) {
+        let selected = this.items.filter(item => item.name === this.selected[this.level].name)
+        if (selected && selected[0].children && selected[0].children.length > 0) {
+          return selected[0].children
+        }
       }
       return null
-    }
+    },
   },
   methods: {
     onClickLabel (item) {
@@ -56,6 +61,9 @@ const cascaderItems = {
     },
     onUpdateSelected (newSelected) {
       this.$emit('update:selected', newSelected)
+    },
+    rightArrowVisible (item)  {
+      return this.loadData ? !item.isLeaf : item.children 
     }
   }
 }
@@ -70,9 +78,11 @@ export default cascaderItems
   height: 100px;
   .left { height: 100%; padding: .3em 0; overflow: auto; }
   .right { height: 100%; border-left: 1px solid $border-color-light; }
-  .label { padding: .3em 1em; display: flex; align-items: center; cursor: pointer;
+  .label { padding: .5em 1em; display: flex; align-items: center; cursor: pointer;
+    &:hover { background: $grey; }
+    .name { margin-right: 2em; user-select: none; }
     .icon {
-      margin-left: 1em; transform: scale(.5); fill: $border-color-light;
+      margin-left: auto; transform: scale(.5); fill: $border-color;
     }
   }
 }
