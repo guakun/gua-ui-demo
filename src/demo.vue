@@ -3,7 +3,8 @@
     <p>{{selected && selected[0] && selected[0].name || '空' }}</p>
     <p>{{selected && selected[1] && selected[1].name || '空' }}</p>
     <p>{{selected && selected[2] && selected[2].name || '空' }}</p>
-    <g-cascader :source="source" popover-height="170px" :selected.sync="selected"></g-cascader>
+    <g-cascader :source="source" popover-height="170px" :selected.sync="selected"
+      @update:selected="xxx"></g-cascader>
   </div>
 </template>
 
@@ -11,11 +12,21 @@
 import GCascader from './cascader/cascader'
 import db from '../tests/fixtures/db'
 
-function ajax (parent_id = 0) {
-  return db.filter((item) => item.parent_id === parent_id)
+function ajax1 (parent_id = 0, success, fail) {
+  let result = db.filter((item) => item.parent_id === parent_id)
+  console.log(success)
+  let id = setTimeout(() => {
+    success(result)
+  }, 3000)
+  return id
 }
 
-console.log(ajax())
+function ajax2 (parent_id = 0) {
+  return new Promise((resolve, reject) => {
+    let result = db.filter((item) => item.parent_id === parent_id)
+    resolve(result)
+  })
+}
 
 export default {
   name: 'demo',
@@ -25,7 +36,23 @@ export default {
   data () {
     return {
       selected: [],
-      source: ajax()
+      source: []
+    }
+  },
+  created () {
+    // ajax1(0, (result) => {
+    //   this.source = result
+    // })
+    ajax2(0).then(result => {
+      this.source = result
+    })
+    ajax2(1).then(result => {
+      console.log(result)
+    })
+  },
+  methods: {
+    xxx () {
+      ajax
     }
   }
 }
