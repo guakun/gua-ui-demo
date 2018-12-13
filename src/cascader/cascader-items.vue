@@ -78,7 +78,7 @@ export default cascaderItems
   height: 100px;
   .left { height: 100%; padding: .3em 0; overflow: auto; }
   .right { height: 100%; border-left: 1px solid $border-color-light; }
-  .label { padding: .5em 1em; display: flex; align-items: center; cursor: pointer;
+  .label { padding: .5em 1em; display: flex; align-items: center; cursor: pointer; white-space: nowrap;
     &:hover { background: $grey; }
     .name { margin-right: 2em; user-select: none; }
     .icon {

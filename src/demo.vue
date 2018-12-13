@@ -1,16 +1,22 @@
 <template>
   <div class="demo">
+    <g-popover>
+      <template><g-button>点我</g-button></template>
+      <template slot="content">弹出内容 </template>
+    </g-popover>
     <p>{{selected && selected[0] && selected[0].name || '空' }}</p>
     <p>{{selected && selected[1] && selected[1].name || '空' }}</p>
     <p>{{selected && selected[2] && selected[2].name || '空' }}</p>
     <g-cascader :source.sync="source" popover-height="170px" :selected.sync="selected"
-      ></g-cascader>
+      :load-data=loadData></g-cascader>
   </div>
 </template>
 
 <script>
-import GCascader from './cascader/cascader'
 import db from '../tests/fixtures/db'
+import Cascader from './cascader/cascader'
+import Popover from './popover'
+import Button from './button/button'
 
 function ajax (parent_id = 0) {
   return new Promise((resolve, reject) => {
@@ -31,7 +37,9 @@ function ajax (parent_id = 0) {
 export default {
   name: 'demo',
   components: {
-    GCascader
+    'g-cascader': Cascader,
+    'g-popover': Popover,
+    'g-button': Button
   },
   data () {
     return {
@@ -40,41 +48,9 @@ export default {
     }
   },
   created () {
-    this.source = [
-        {
-          name: '浙江',
-          children: [
-            { name: '杭州', children: [
-              { name: '西湖' },
-              { name: '拱墅' },
-              { name: '滨江' },
-            ]},
-            { name: '义乌', children: [
-              {name: '义乌区1'},
-              {name: '义乌区2'},
-              {name: '义乌区3'},
-            ]},
-            { name: '宁波' },
-          ]
-        },
-        {
-          name: '山东',
-          children: [
-            { name: '济南' },
-            { name: '青岛' },
-            { name: '潍坊' },
-          ]
-        },
-        {
-          name: '北京',
-          children: [
-            { name: '大兴' },
-            { name: '五道口' },
-            { name: 'soho' },
-          ]
-        },
-        { name: '广州' }
-      ]
+    ajax(0).then(result => {
+      this.source = result
+    })
   },
   methods: {
     loadData ( {id}, updateSource) {
