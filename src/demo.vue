@@ -9,6 +9,10 @@
     <p>{{selected && selected[2] && selected[2].name || '空' }}</p>
     <g-cascader :source.sync="source" popover-height="170px" :selected.sync="selected"
       :load-data=loadData></g-cascader>
+    <div style="margin-top: 20px;">
+      <g-cascader :source.sync="source" popover-height="170px" :selected.sync="selected"
+        :load-data=loadData></g-cascader>
+    </div>
   </div>
 </template>
 
@@ -17,6 +21,7 @@ import db from '../tests/fixtures/db'
 import Cascader from './cascader/cascader'
 import Popover from './popover'
 import Button from './button/button'
+import { removeListener } from './click-outside'
 
 function ajax (parent_id = 0) {
   return new Promise((resolve, reject) => {
@@ -51,6 +56,9 @@ export default {
     ajax(0).then(result => {
       this.source = result
     })
+  },
+  destroyed () {
+    removeListener()
   },
   methods: {
     loadData ( {id}, updateSource) {
