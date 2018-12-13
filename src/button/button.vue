@@ -34,10 +34,6 @@ export default {
 <style lang="scss" scoped>
 @import 'var';
 
-@keyframes spin {
-  0% { transform: rotate(0); }
-  100% { transform: rotate(360deg); }
-}
 .gua-button { font-size: $font-size; height: $button-height; padding: 0 1em; font-family: inherit;
   border-radius: $border-radius; border: 1px solid $border-color; background: $button-bg;
   display: inline-flex; justify-content: center; align-items: center; vertical-align: middle;

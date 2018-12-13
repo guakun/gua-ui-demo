@@ -35,7 +35,7 @@ function ajax (parent_id = 0) {
         }
       })
       resolve(result)
-    }, 20)
+    }, 2000)
   })
 }
 

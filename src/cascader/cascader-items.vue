@@ -3,12 +3,20 @@
     <div class="left">
       <div class="label" v-for="item in items" @click="onClickLabel(item)">
         <span class="name">{{item.name}}</span>
-        <gua-icon class="icon" v-if="rightArrowVisible(item)" name="right"></gua-icon>
+        <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <gua-icon class="icon loading" name="loading"></gua-icon>
+          </template>
+          <template v-else>
+            <gua-icon class="icon next" v-if="rightArrowVisible(item)" name="right"></gua-icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <gua-cascader-items :items="rightItems" :height="height" :level="level + 1"
-        :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></gua-cascader-items>
+        :selected="selected" @update:selected="onUpdateSelected" :load-data="loadData"
+        :loading-item="loadingItem"></gua-cascader-items>
     </div>
   </div>
 </template>
@@ -39,6 +47,10 @@ const cascaderItems = {
     },
     loadData: {
       type: Function
+    },
+    loadingItem: {
+      type: Object,
+      default: () => ({})
     }
   },
   computed: {
@@ -81,8 +93,11 @@ export default cascaderItems
   .label { padding: .5em 1em; display: flex; align-items: center; cursor: pointer; white-space: nowrap;
     &:hover { background: $grey; }
     .name { margin-right: 2em; user-select: none; }
-    .icon {
-      margin-left: auto; transform: scale(.5); fill: $border-color;
+    > .icons { margin-left: auto; fill: $border-color;
+     .icon{
+        &.loading { transform: scale(.9); animation: spin .7s infinite linear; }
+        &.next { transform: scale(.5); }
+      } 
     }
   }
 }
