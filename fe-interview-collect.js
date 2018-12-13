@@ -5,7 +5,7 @@ for (var i=0; i<2; i++) {
 // 0
 // 1
 
-for (var i=0; i<2; i++) {
+for (var i=0;let i = _i,  i<2; i++) {
   setTimeout(() => console.log(i))
 }
 // 一个 i
