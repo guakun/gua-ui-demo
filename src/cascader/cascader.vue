@@ -52,7 +52,6 @@
         this.popoverVisible = true
       },
       close () {
-        console.log('close')
         this.popoverVisible = false
       },
       toggle () {
