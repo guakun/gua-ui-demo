@@ -2,7 +2,22 @@
   <div class="demo">
     <gua-nav :selected.sync="selected">
       <gua-nav-item name="home">首页</gua-nav-item>
-      <gua-nav-item name="about">关于</gua-nav-item>
+      <gua-sub-nav>
+        <template slot="title">关于</template>
+        <gua-nav-item name="culture">企业文化</gua-nav-item>
+        <gua-nav-item name="developers">开发团队</gua-nav-item>
+        <gua-sub-nav>
+          <template slot="title">联系方式</template>
+          <gua-nav-item name="wechat">微信</gua-nav-item>
+          <gua-nav-item name="qq">QQ</gua-nav-item>
+          <gua-sub-nav>
+            <template slot="title">手机</template>
+            <gua-nav-item name="cb">移动</gua-nav-item>
+            <gua-nav-item name="cu">联通</gua-nav-item>
+            <gua-nav-item name="cn">电信</gua-nav-item>
+          </gua-sub-nav>
+        </gua-sub-nav>
+      </gua-sub-nav>
       <gua-nav-item name="hire">招聘</gua-nav-item>
     </gua-nav>
   </div>
@@ -18,7 +33,7 @@ export default {
   components: { GuaNav, GuaNavItem, GuaSubNav },
   data () {
     return {
-      selected: ['home']
+      selected: ['culture']
     }
   }
 }

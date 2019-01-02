@@ -7,6 +7,11 @@
 <script>
 export default {
   name: 'GuaNav',
+  provide () {
+    return {
+      root: this
+    }
+  },
   props: {
     selected: {
       type: Array,
@@ -17,9 +22,9 @@ export default {
       default: false
     }
   },
-  computed: {
-    items () {
-      return this.$children.filter(vm => vm.$options.name === 'GuaNavItem')
+  data () {
+    return {
+      items: []
     }
   },
   mounted () {
@@ -30,6 +35,9 @@ export default {
     this.updateChildren()
   },
   methods: {
+    addItem (vm) {
+      this.items.push(vm)
+    },
     updateChildren () {
       this.items.forEach(vm => {
         if (this.selected.indexOf(vm.name) >= 0) {
