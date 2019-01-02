@@ -24,6 +24,11 @@ export default {
   },
   methods: {
     onClick () {
+      this.root.namePath = []
+      if (this.$parent.updateNamePath) {
+        this.$parent.updateNamePath()
+      } else {
+      }
       this.$emit('add:selected', this.name)
     }
   }
@@ -45,7 +50,7 @@ export default {
 }
 .gua-sub-nav .gua-nav-item {
   &.selected {
-    color: $color;
+    color: $color; background: $grey;
     &:after {
       display: none;
     }
