@@ -20,6 +20,7 @@
       </gua-sub-nav>
       <gua-nav-item name="hire">招聘</gua-nav-item>
     </gua-nav>
+    <p>你好, 我是中文</p>
   </div>
 </template>
 

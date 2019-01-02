@@ -26,15 +26,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "var";
 .gua-sub-nav {
   position: relative;
   > span {
-    border: 1px solid lightblue;
     padding: 10px 20px; display: block;
   }
   &-popover {
-    border: 1px solid black;
+    background: #fff;
     position: absolute; top: 100%; left: 0; white-space: nowrap;
+    margin-top: 4px;
+    box-shadow: 0 0 3px fade_out(black, 0.8);
+    border-radius: $border-radius;
+    color: $light-color; font-size: $font-size;
+    min-width: 8em;
   }
 }
 .gua-sub-nav .gua-sub-nav .gua-sub-nav-popover {

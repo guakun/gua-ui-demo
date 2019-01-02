@@ -67,8 +67,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "var";
 .gua-nav {
-  border: 1px solid blue;
   display: flex;
+  border-bottom: 1px solid $grey;
+  color: $color;
+  cursor: default;
 }
 </style>
