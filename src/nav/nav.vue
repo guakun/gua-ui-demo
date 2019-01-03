@@ -1,6 +1,5 @@
 <template>
-  <div class="gua-nav">
-    {{ namePath }}
+  <div class="gua-nav" :class="{ vertical }">
     <slot></slot>
   </div>
 </template>
@@ -10,7 +9,8 @@ export default {
   name: 'GuaNav',
   provide () {
     return {
-      root: this
+      root: this,
+      vertical: this.vertical
     }
   },
   props: {
@@ -19,6 +19,10 @@ export default {
       default: () => []
     },
     multiple: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
       type: Boolean,
       default: false
     }
@@ -74,6 +78,10 @@ export default {
   display: flex;
   border-bottom: 1px solid $grey;
   color: $color;
-  cursor: default;
+  cursor: default; user-select: none;
+  &.vertical {
+    flex-direction: column;
+    border: 1px solid $gray;
+  }
 }
 </style>
