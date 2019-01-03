@@ -6,16 +6,22 @@
         <gua-icon name="right"></gua-icon>
       </span>
     </span>
-    <transition name="x"
-                @enter="enter"
-                @after-enter="afterEnter"
-                @leave="leave"
-                @after-leave="afterLeave"
-    >
+    <template v-if="vertical">
+      <transition @enter="enter"
+                  @after-enter="afterEnter"
+                  @leave="leave"
+                  @after-leave="afterLeave"
+      >
+        <div class="gua-sub-nav-popover" v-show="open" :class="{vertical}">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <template v-else>
       <div class="gua-sub-nav-popover" v-show="open" :class="{vertical}">
         <slot></slot>
       </div>
-    </transition>
+    </template>
   </div>
 </template>
 
@@ -45,27 +51,31 @@
       }
     },
     methods: {
-      enter (el, done) {
+      enter(el, done) {
         el.style.height = 'auto'
         let {height} = el.getBoundingClientRect()
         el.style.height = 0
         el.getBoundingClientRect()
         el.style.height = `${height}px`
         // 合并
-        el.addEventListener('transitionend', () => { done() })
+        el.addEventListener('transitionend', () => {
+          done()
+        })
       },
-      afterEnter (el) {
+      afterEnter(el) {
         el.style.height = 'auto'
       },
-      leave (el, done) {
+      leave(el, done) {
         let {height} = el.getBoundingClientRect()
         el.style.height = `${height}px`
         el.getBoundingClientRect()
         el.style.height = 0
         // 可能会存在浏览器兼容性问题
-        el.addEventListener('transitionend', () => { done() })
+        el.addEventListener('transitionend', () => {
+          done()
+        })
       },
-      afterLeave (el) {
+      afterLeave(el) {
         el.style.height = 'auto'
       },
       onClick() {
@@ -87,12 +97,6 @@
 
 <style lang="scss" scoped>
   @import "var";
-
-  .x-enter-active, .x-leave-active {
-  }
-
-  .x-enter, .x-leave-to {
-  }
 
   .gua-sub-nav {
     position: relative;
@@ -127,12 +131,12 @@
       color: $light-color;
       font-size: $font-size;
       min-width: 8em;
+      transition: height 300ms;
       &.vertical {
         position: static;
         border-radius: 0;
         border: 0 none;
         box-shadow: none;
-        transition: height 300ms;
         overflow: hidden;
       }
     }

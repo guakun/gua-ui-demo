@@ -20,7 +20,7 @@
       </gua-sub-nav>
       <gua-nav-item name="hire">招聘</gua-nav-item>
     </gua-nav>
-    <gua-nav :selected.sync="selected" :vertical="true" style="width: 200px; margin-left: 20px; margin-top: 20px;">
+    <gua-nav :selected.sync="selected" :vertical="true" style="margin-top: 70px; width: 200px; margin-left: 20px;">
       <gua-nav-item name="home">首页</gua-nav-item>
       <gua-sub-nav name="about">
         <template slot="title">关于</template>
