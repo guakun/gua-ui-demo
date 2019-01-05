@@ -1,5 +1,5 @@
 <template>
-  <div class="gua-nav-item" :class="{selected}" @click="onClick">
+  <div class="gua-nav-item" :class="{selected, vertical}" @click="onClick">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'GuaNavItem',
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   props: {
     name: {
       type: String,
@@ -39,16 +39,27 @@ export default {
 @import "var";
 .gua-nav-item {
   padding: 10px 20px;
-  &.selected {
-    position: relative;
-    &:after {
-      content: '';
-      position: absolute; bottom: 0;left: 0; width: 100%;
-      border-bottom: 2px solid $blue;
+  &:not(.vertical) {
+    &.selected {
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute; bottom: 0;left: 0; width: 100%;
+        border-bottom: 2px solid $blue;
+      }
+    }
+  }
+  &.vertical {
+    &.selected {
+      color: $blue;
     }
   }
 }
-.gua-sub-nav .gua-nav-item {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.gua-sub-nav .gua-nav-item:not(.vertical) {
   &.selected {
     color: $color; background: $grey;
     &:after {

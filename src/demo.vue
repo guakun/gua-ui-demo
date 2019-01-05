@@ -1,7 +1,9 @@
 <template>
   <div class="demo">
     <gua-nav :selected.sync="selected" >
-      <gua-nav-item name="home">首页</gua-nav-item>
+      <gua-nav-item name="home">
+        <a href="https://www.baidu.com">首页</a>
+      </gua-nav-item>
       <gua-sub-nav name="about">
         <template slot="title">关于</template>
         <gua-nav-item name="culture">企业文化</gua-nav-item>
@@ -20,7 +22,7 @@
       </gua-sub-nav>
       <gua-nav-item name="hire">招聘</gua-nav-item>
     </gua-nav>
-    <gua-nav :selected.sync="selected" :vertical="true" style="margin-top: 70px; width: 200px; margin-left: 20px;">
+    <gua-nav :selected.sync="selected" :vertical="true" style="margin-top: 200px; width: 200px; margin-left: 20px;">
       <gua-nav-item name="home">首页</gua-nav-item>
       <gua-sub-nav name="about">
         <template slot="title">关于</template>
