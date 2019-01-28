@@ -1,6 +1,6 @@
 <template>
   <div class="demo">
-    <gua-pager :total-page="20" :current-page="20"></gua-pager>
+    <gua-pager :total-page="10" :current-page.sync="currentPage"></gua-pager>
   </div>
 </template>
 
@@ -12,7 +12,8 @@
     components: {GuaPager},
     data() {
       return {
-        selected: ['culture']
+        selected: ['culture'],
+        currentPage: 20
       }
     }
   }

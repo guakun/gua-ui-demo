@@ -1,6 +1,7 @@
 <template>
-  <div class="gua-pager">
-    <span class="gua-pager-nav prev" :class="{disabled: currentPage===1}">
+  <div class="gua-pager" :class="{hide: hideIfOnePage && totalPage <= 1}">
+    <span class="gua-pager-nav prev" :class="{disabled: currentPage===1}"
+          @click="onClickPage(currentPage-1)">
       <gua-icon name="left"></gua-icon>
     </span>
     <template v-for="page in pages" class="gua-pager-item">
@@ -11,10 +12,11 @@
         <gua-icon class="gua-pager-separator" name="dots">?</gua-icon>
       </template>
       <template v-else>
-        <span class="gua-pager-item other">{{page}}</span>
+        <span class="gua-pager-item other" @click="onClickPage(page)">{{page}}</span>
       </template>
     </template>
-    <span class="gua-pager-nav next" :class="{disabled: currentPage===totalPage}">
+    <span class="gua-pager-nav next" :class="{disabled: currentPage===totalPage}"
+          @click="onClickPage(currentPage+1)">
       <gua-icon name="right"></gua-icon>
     </span>
   </div>
@@ -42,28 +44,31 @@
         default: true
       }
     },
-    data() {
-      let pages = unique([1, this.totalPage,
-        this.currentPage,
-        this.currentPage - 1, this.currentPage - 2,
-        this.currentPage + 1, this.currentPage + 2]
-        .filter(n => n >= 1 && n <= this.totalPage)
-        .sort((a, b) => a - b))
-        .reduce((prev, current, index, array) => {
-          prev.push(current)
-          array[index + 1] && array[index + 1] - array[index] > 1 && prev.push('...')
-          return prev
-        }, [])
-      return {
-        pages
+    computed: {
+      pages() {
+        return unique([1, this.totalPage,
+          this.currentPage,
+          this.currentPage - 1, this.currentPage - 2,
+          this.currentPage + 1, this.currentPage + 2]
+          .filter(n => n >= 1 && n <= this.totalPage)
+          .sort((a, b) => a - b))
+          .reduce((prev, current, index, array) => {
+            prev.push(current)
+            array[index + 1] && array[index + 1] - array[index] > 1 && prev.push('...')
+            return prev
+          }, [])
+      }
+    },
+    methods: {
+      onClickPage(n) {
+        if (n >= 1 && n <= this.totalPage) {
+          this.$emit('update:currentPage', n)
+        }
       }
     }
   }
 
   function unique(array) {
-    // set 去重 兼容性有点差
-    // return [...new Set(array)]
-    //
     const object = []
     array.map(number => {
       object[number] = true
@@ -79,7 +84,8 @@
   $height: 20px;
   $font-size: 12px;
   .gua-pager {
-    display: flex; justify-content: flex-start; align-items: center;
+    &.hide {display: none;}
+    display: flex; justify-content: flex-start; align-items: center; user-select: none;
     &-separator {
       width: $width;
       font-size: $font-size;
