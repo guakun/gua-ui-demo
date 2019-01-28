@@ -1,6 +1,6 @@
 <template>
   <div class="demo">
-    <gua-pager :total-page="20" :current-page="10"></gua-pager>
+    <gua-pager :total-page="20" :current-page="20"></gua-pager>
   </div>
 </template>
 

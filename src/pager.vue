@@ -1,14 +1,33 @@
 <template>
   <div class="gua-pager">
-    <span v-for="page in pages" class="gua-pager-item" :class="{active: page === currentPage, separator: page === '...'}">
-      {{page}}
+    <span class="gua-pager-nav prev" :class="{disabled: currentPage===1}">
+      <gua-icon name="left"></gua-icon>
+    </span>
+    <template v-for="page in pages" class="gua-pager-item">
+      <template v-if="page===currentPage">
+        <span class="gua-pager-item current">{{page}}</span>
+      </template>
+      <template v-else-if="page==='...'">
+        <gua-icon class="gua-pager-separator" name="dots">?</gua-icon>
+      </template>
+      <template v-else>
+        <span class="gua-pager-item other">{{page}}</span>
+      </template>
+    </template>
+    <span class="gua-pager-nav next" :class="{disabled: currentPage===totalPage}">
+      <gua-icon name="right"></gua-icon>
     </span>
   </div>
 </template>
 
 <script>
+  import GuaIcon from './icon'
+
   export default {
     name: "GuaPager",
+    components: {
+      GuaIcon
+    },
     props: {
       totalPage: {
         type: Number,
@@ -28,6 +47,7 @@
         this.currentPage,
         this.currentPage - 1, this.currentPage - 2,
         this.currentPage + 1, this.currentPage + 2]
+        .filter(n => n >= 1 && n <= this.totalPage)
         .sort((a, b) => a - b))
         .reduce((prev, current, index, array) => {
           prev.push(current)
@@ -55,18 +75,29 @@
 <style lang="scss" scoped>
   @import "var";
 
+  $width: 20px;
+  $height: 20px;
+  $font-size: 12px;
   .gua-pager {
+    display: flex; justify-content: flex-start; align-items: center;
+    &-separator {
+      width: $width;
+      font-size: $font-size;
+    }
     &-item {
-      border: 1px solid $gray; border-radius: $border-radius; padding: 0 4px; min-width: 20px; display: inline-flex;
-      justify-content: center; align-items: center; font-size: 12px; height: 20px; margin: 0 4px; cursor: pointer;
-      &.separator {
-        border: none;
-      }
-      &.active, &:hover {
-        border-color: $blue;
-      }
-      &.active {
-        cursor: default;
+      min-width: $width; height: $height; font-size: $font-size;
+      border: 1px solid $gray; border-radius: $border-radius; padding: 0 4px; display: inline-flex;
+      justify-content: center; align-items: center; margin: 0 4px; cursor: pointer;
+      &.current, &:hover { border-color: $blue; }
+      &.current { cursor: default; }
+    }
+    &-nav {
+      display: inline-flex; height: $height; width: $width; border-radius: $border-radius; font-size: $font-size;
+      justify-content: center; align-items: center; margin: 0 4px; background: $gray;
+      &.disabled {
+        svg {
+          fill: darken($gray, 20%);
+        }
       }
     }
   }
