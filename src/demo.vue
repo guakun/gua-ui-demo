@@ -2,8 +2,8 @@
   <div>
     {{selected}}
     <div class="demo">
-      <gua-table :columns="columns" :data-source="dataSource" bordered :selected-items.sync="selected"
-                 :order-by.sync="orderBy" @update:orderBy="x"></gua-table>
+      <gua-table :columns="columns" :data-source="dataSource" :selected-items.sync="selected" bordered
+                 :order-by.sync="orderBy" @update:orderBy="x" :loading="loading" height="400px"></gua-table>
     </div>
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" bordered :striped="false" compact></gua-table>
@@ -51,14 +51,19 @@
           {id: 14, name: '蜘蛛侠', score: 100},
           {id: 15, name: '蝙蝠侠', score: 98},
           {id: 16, name: '超人', score: 97},
-        ]
+        ],
+        loading: false
       }
     },
     methods: {
       x() {
         console.log('x') // /api/users?score='desc'
         console.log(this.orderBy)
-        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
+        this.loading = true
+        setTimeout(() => {
+          this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
+          this.loading = false
+        }, 1600)
       }
     }
   }

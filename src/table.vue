@@ -1,34 +1,39 @@
 <template>
-  <div class="gua-table-wrapper">
-    <table class="gua-table" :class="{bordered, compact, striped}">
-      <thead>
-      <tr>
-        <th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/></th>
-        <th v-if="numberVisible">#</th>
-        <th v-for="column in columns" :key="column.field">
-          <div class="gua-table-header">
-            {{column.text}}
-            <span class="gua-table-sorter" v-if="column.field in orderBy" @click="changeOrderBy(column.field)">
+  <div class="gua-table-wrapper" ref="wrapper">
+    <div :style="{height, overflow: 'overlay'}">
+      <table class="gua-table" :class="{bordered, compact, striped}" ref="table">
+        <thead>
+        <tr>
+          <th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/></th>
+          <th v-if="numberVisible">#</th>
+          <th v-for="column in columns" :key="column.field">
+            <div class="gua-table-header">
+              {{column.text}}
+              <span class="gua-table-sorter" v-if="column.field in orderBy" @click="changeOrderBy(column.field)">
               <gua-icon name="up" :class="{'active': orderBy[column.field]==='asc'}"></gua-icon>
               <gua-icon name="down" :class="{'active': orderBy[column.field]==='desc'}"></gua-icon>
             </span>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item,index in dataSource" :key="item.id">
-        <td>
-          <input type="checkbox" @change="onChangeItem(item, index, $event)"
-                 :checked="inSelectedItems(item)"/>
-        </td>
-        <td v-if="numberVisible">{{index+1}}</td>
-        <template v-for="column in columns">
-          <td :key="column.field">{{item[column.field]}}</td>
-        </template>
-      </tr>
-      </tbody>
-    </table>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item,index in dataSource" :key="item.id">
+          <td>
+            <input type="checkbox" @change="onChangeItem(item, index, $event)"
+                   :checked="inSelectedItems(item)"/>
+          </td>
+          <td v-if="numberVisible">{{index+1}}</td>
+          <template v-for="column in columns">
+            <td :key="column.field">{{item[column.field]}}</td>
+          </template>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="loading" class="gua-table-loading">
+      <gua-icon name="loading"></gua-icon>
+    </div>
   </div>
 </template>
 
@@ -75,6 +80,13 @@
       orderBy: {
         type: Object,
         default: () => ({})
+      },
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      height: {
+        type: [Number, String]
       }
     },
     computed: {
@@ -97,6 +109,21 @@
         return equal
       }
     },
+    mounted() {
+      let table2 = this.$refs.table.cloneNode(true)
+      this.table2 = table2
+      table2.classList.add('gua-table-copy')
+      this.$refs.wrapper.appendChild(table2)
+      this.updateHeaderWidth()
+      this.onWindowResize = () => {
+        this.updateHeaderWidth()
+      }
+      window.addEventListener('resize', this.onWindowResize)
+    },
+    beforeDestroy() {
+      this.table2.remove()
+      window.removeEventListener('resize', this.onWindowResize)
+    },
     watch: {
       selectedItems() {
         if (this.selectedItems.length === this.dataSource.length) {
@@ -112,7 +139,7 @@
       changeOrderBy(key) {
         let copy = JSON.parse(JSON.stringify(this.orderBy))
         let oldValue = copy[key]
-        if(oldValue === 'asc') {
+        if (oldValue === 'asc') {
           copy[key] = 'desc'
         } else if (oldValue === 'desc') {
           copy[key] = true
@@ -137,6 +164,22 @@
       onChangeAllItems(e) {
         let selected = e.target.checked
         this.$emit('update:selectedItems', selected ? this.dataSource : [])
+      },
+      updateHeaderWidth() {
+        let table2 = this.table2
+        let tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
+        let tableHeader2
+        Array.from(table2.children).map(node => {
+          if (node.tagName.toLowerCase() !== 'thead') {
+            node.remove()
+          } else {
+            tableHeader2 = node
+          }
+        })
+        Array.from(tableHeader.children[0].children).map((th, i) => {
+          const {width} = th.getBoundingClientRect()
+          tableHeader2.children[0].children[i].style.width = width + 'px'
+        })
       }
     }
   }
@@ -146,6 +189,7 @@
   @import "var";
 
   $gray: darken($gray, 20%);
+
   .gua-table {
     width: 100%; border-collapse: collapse; border-spacing: 0; border-bottom: 1px solid $gray;
     &.bordered { border: 1px solid $gray;
@@ -164,18 +208,23 @@
     }
     th, td { border-bottom: 1px solid $gray; text-align: left; padding: 8px; }
     &-header { display: flex; align-items: center;}
-    &-sorter { display: inline-flex; flex-direction: column; margin: 0 2px;
-      cursor: pointer;
+    &-sorter { display: inline-flex; flex-direction: column; margin: 0 2px; cursor: pointer;
       svg { width: 10px; height: 10px; fill: $gray;
         &.active { fill: red; }
-        &:first-child {
-          position: relative;
-          bottom: -1px;
-        }
-        &:nth-child(2) {
-          position: relative;
-          top: -1px;
-        }
+        &:first-child { position: relative; bottom: -1px; }
+        &:nth-child(2) { position: relative; top: -1px; }
+      }
+    }
+    &-wrapper { position: relative; }
+    &-copy { position: absolute; top: 0; left: 0; width: 100%; background-color: white; }
+    &-loading {
+      background: rgba(255, 255, 255, .8);
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      svg {
+        width: 50px;
+        height: 50px;
+        @include spin;
       }
     }
   }

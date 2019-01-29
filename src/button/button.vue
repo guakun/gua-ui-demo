@@ -43,6 +43,6 @@ export default {
   > .icon { order: 1; margin-right: .3em; }
   > .g-button-content { order: 2;}
   &.icon-right { >.content { order: 1; } > .icon { order: 2; margin-left: .3em; margin-right: 0; } }
-  .loading { animation: spin .7s infinite linear; fill: $border-color; }
+  .loading { @include spin; fill: $border-color; }
 }
 </style>
