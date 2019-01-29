@@ -2,7 +2,8 @@
   <div>
     {{selected}}
     <div class="demo">
-      <gua-table :columns="columns" :data-source="dataSource" bordered :selected-items.sync="selected"></gua-table>
+      <gua-table :columns="columns" :data-source="dataSource" bordered :selected-items.sync="selected"
+                 :order-by.sync="orderBy" @update:orderBy="x"></gua-table>
     </div>
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" bordered :striped="false" compact></gua-table>
@@ -29,27 +30,37 @@
           {text: '姓名', field: 'name'},
           {text: '分数', field: 'score'},
         ],
+        orderBy: { // true - 开启排序, 但是不确定 asc desc
+          name: 'asc',
+          score: 'desc'
+        },
         dataSource: [
           {id: 1, name: 'guagua', score: 100},
           {id: 2, name: 'lulu', score: 100},
-          // {id: 3, name: 'yiyi', score: 98},
-          // {id: 4, name: 'yinyin', score: 97},
-          // {id: 5, name: '方方', score: 100},
-          // {id: 6, name: '圆圆', score: 100},
-          // {id: 7, name: '美国队长', score: 98},
-          // {id: 8, name: '冬兵', score: 97},
-          // {id: 9, name: '死侍', score: 100},
-          // {id: 10, name: '毒液', score: 100},
-          // {id: 11, name: '钢铁侠', score: 98},
-          // {id: 12, name: '大黄蜂', score: 97},
-          // {id: 13, name: '擎天柱', score: 100},
-          // {id: 14, name: '蜘蛛侠', score: 100},
-          // {id: 15, name: '蝙蝠侠', score: 98},
-          // {id: 16, name: '超人', score: 97},
+          {id: 3, name: 'yiyi', score: 98},
+          {id: 4, name: 'yinyin', score: 97},
+          {id: 5, name: '方方', score: 100},
+          {id: 6, name: '圆圆', score: 100},
+          {id: 7, name: '美国队长', score: 98},
+          {id: 8, name: '冬兵', score: 97},
+          {id: 9, name: '死侍', score: 100},
+          {id: 10, name: '毒液', score: 100},
+          {id: 11, name: '钢铁侠', score: 98},
+          {id: 12, name: '大黄蜂', score: 97},
+          {id: 13, name: '擎天柱', score: 100},
+          {id: 14, name: '蜘蛛侠', score: 100},
+          {id: 15, name: '蝙蝠侠', score: 98},
+          {id: 16, name: '超人', score: 97},
         ]
       }
     },
-    methods: {}
+    methods: {
+      x() {
+        console.log('x') // /api/users?score='desc'
+        console.log(this.orderBy)
+        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
+      }
+    }
   }
 </script>
 

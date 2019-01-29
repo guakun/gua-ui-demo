@@ -5,7 +5,15 @@
       <tr>
         <th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/></th>
         <th v-if="numberVisible">#</th>
-        <th v-for="column in columns" :key="column.field">{{column.text}}</th>
+        <th v-for="column in columns" :key="column.field">
+          <div class="gua-table-header">
+            {{column.text}}
+            <span class="gua-table-sorter" v-if="column.field in orderBy" @click="changeOrderBy(column.field)">
+              <gua-icon name="up" :class="{'active': orderBy[column.field]==='asc'}"></gua-icon>
+              <gua-icon name="down" :class="{'active': orderBy[column.field]==='desc'}"></gua-icon>
+            </span>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -25,8 +33,13 @@
 </template>
 
 <script>
+  import GuaIcon from './icon'
+
   export default {
     name: "GuaTable",
+    components: {
+      GuaIcon
+    },
     props: {
       columns: {
         type: Array,
@@ -58,6 +71,10 @@
       selectedItems: {
         type: Array,
         default: () => []
+      },
+      orderBy: {
+        type: Object,
+        default: () => ({})
       }
     },
     computed: {
@@ -92,6 +109,18 @@
       }
     },
     methods: {
+      changeOrderBy(key) {
+        let copy = JSON.parse(JSON.stringify(this.orderBy))
+        let oldValue = copy[key]
+        if(oldValue === 'asc') {
+          copy[key] = 'desc'
+        } else if (oldValue === 'desc') {
+          copy[key] = true
+        } else {
+          copy[key] = 'asc'
+        }
+        this.$emit('update:orderBy', copy)
+      },
       inSelectedItems(item) {
         return this.selectedItems.filter((i) => i.id === item.id).length > 0
       },
@@ -118,39 +147,36 @@
 
   $gray: darken($gray, 20%);
   .gua-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-bottom: 1px solid $gray;
-    &.bordered {
-      border: 1px solid $gray;
-      td, th {
-        border: 1px solid $gray;
-      }
+    width: 100%; border-collapse: collapse; border-spacing: 0; border-bottom: 1px solid $gray;
+    &.bordered { border: 1px solid $gray;
+      td, th { border: 1px solid $gray; }
     }
     &.compact {
-      td, th {
-        padding: 4px;
-      }
+      td, th { padding: 4px; }
     }
     &.striped {
       tbody {
         > tr {
-          &:nth-child(odd) {
-            background: white;
-          }
-          &:nth-child(even) {
-            background: lighten($gray, 20%);
-          }
+          &:nth-child(odd) { background: white; }
+          &:nth-child(even) { background: lighten($gray, 20%); }
+        }
+      }
+    }
+    th, td { border-bottom: 1px solid $gray; text-align: left; padding: 8px; }
+    &-header { display: flex; align-items: center;}
+    &-sorter { display: inline-flex; flex-direction: column; margin: 0 2px;
+      cursor: pointer;
+      svg { width: 10px; height: 10px; fill: $gray;
+        &.active { fill: red; }
+        &:first-child {
+          position: relative;
+          bottom: -1px;
+        }
+        &:nth-child(2) {
+          position: relative;
+          top: -1px;
         }
       }
     }
   }
-
-  th, td {
-    border-bottom: 1px solid $gray;
-    text-align: left;
-    padding: 8px;
-  }
-
 </style>
