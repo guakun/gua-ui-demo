@@ -1,12 +1,15 @@
 <template>
   <div class="gua-table-wrapper" ref="wrapper">
-    <div :style="{height, overflow: 'overlay'}">
+    <div :style="{height, overflow: 'overlay'}" ref="tableWrapper">
       <table class="gua-table" :class="{bordered, compact, striped}" ref="table">
         <thead>
         <tr>
-          <th><input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/></th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.field">
+          <th :style="{width: '50px'}" class="gua-table-center"></th>
+          <th :style="{width: '50px'}" class="gua-table-center"><input type="checkbox" @change="onChangeAllItems"
+                                                                       ref="allChecked"
+                                                                       :checked="areAllItemsSelected"/></th>
+          <th :style="{width: '50px'}" v-if="numberVisible" class="gua-table-center">#</th>
+          <th :style="{width: `${column.width}px`}" v-for="column in columns" :key="column.field">
             <div class="gua-table-header">
               {{column.text}}
               <span class="gua-table-sorter" v-if="column.field in orderBy" @click="changeOrderBy(column.field)">
@@ -18,16 +21,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item,index in dataSource" :key="item.id">
-          <td>
-            <input type="checkbox" @change="onChangeItem(item, index, $event)"
-                   :checked="inSelectedItems(item)"/>
-          </td>
-          <td v-if="numberVisible">{{index+1}}</td>
-          <template v-for="column in columns">
-            <td :key="column.field">{{item[column.field]}}</td>
-          </template>
-        </tr>
+        <template v-for="item,index in dataSource">
+          <tr :key="item.id">
+            <td :style="{width: '50px'}" class="gua-table-center">
+              <gua-icon @click="expandItem(item.id)" class="gua-table-expandIcon" name="right"/>
+            </td>
+            <td :style="{width: '50px'}" class="gua-table-center">
+              <input type="checkbox" @change="onChangeItem(item, index, $event)"
+                     :checked="inSelectedItems(item)"/>
+            </td>
+            <td :style="{width: '50px'}" v-if="numberVisible" class="gua-table-center">{{index+1}}</td>
+            <template v-for="column in columns">
+              <td :style="{width: `${column.width}px`}" :key="column.field">{{item[column.field]}}</td>
+            </template>
+          </tr>
+          <tr v-if="inExpandedIds(item.id)" :key="`${item.id}-expand`">
+            <td :colspan="columns.length + 2">
+              {{item[expandField] || '空'}}
+            </td>
+          </tr>
+        </template>
         </tbody>
       </table>
     </div>
@@ -86,7 +99,15 @@
         default: false
       },
       height: {
-        type: [Number, String]
+        type: Number
+      },
+      expandField: {
+        type: String
+      }
+    },
+    data() {
+      return {
+        expandedIds: []
       }
     },
     computed: {
@@ -110,19 +131,18 @@
       }
     },
     mounted() {
-      let table2 = this.$refs.table.cloneNode(true)
+      let table2 = this.$refs.table.cloneNode(false)
       this.table2 = table2
       table2.classList.add('gua-table-copy')
+      let tHead = this.$refs.table.children[0]
+      let {height} = tHead.getBoundingClientRect()
+      this.$refs.tableWrapper.style.marginTop = `${height}px`
+      this.$refs.tableWrapper.style.height = `${this.height - height}px`
+      table2.appendChild(tHead)
       this.$refs.wrapper.appendChild(table2)
-      this.updateHeaderWidth()
-      this.onWindowResize = () => {
-        this.updateHeaderWidth()
-      }
-      window.addEventListener('resize', this.onWindowResize)
     },
     beforeDestroy() {
       this.table2.remove()
-      window.removeEventListener('resize', this.onWindowResize)
     },
     watch: {
       selectedItems() {
@@ -165,21 +185,15 @@
         let selected = e.target.checked
         this.$emit('update:selectedItems', selected ? this.dataSource : [])
       },
-      updateHeaderWidth() {
-        let table2 = this.table2
-        let tableHeader = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
-        let tableHeader2
-        Array.from(table2.children).map(node => {
-          if (node.tagName.toLowerCase() !== 'thead') {
-            node.remove()
-          } else {
-            tableHeader2 = node
-          }
-        })
-        Array.from(tableHeader.children[0].children).map((th, i) => {
-          const {width} = th.getBoundingClientRect()
-          tableHeader2.children[0].children[i].style.width = width + 'px'
-        })
+      expandItem(id) {
+        if (this.inExpandedIds(id)) {
+          this.expandedIds.splice(this.expandedIds.indexOf(id), 1)
+        } else {
+          this.expandedIds.push(id)
+        }
+      },
+      inExpandedIds(id) {
+        return this.expandedIds.indexOf(id) >= 0
       }
     }
   }
@@ -215,17 +229,15 @@
         &:nth-child(2) { position: relative; top: -1px; }
       }
     }
-    &-wrapper { position: relative; }
+    &-wrapper { position: relative; padding-top: .1px; }
     &-copy { position: absolute; top: 0; left: 0; width: 100%; background-color: white; }
     &-loading {
       background: rgba(255, 255, 255, .8);
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
-      svg {
-        width: 50px;
-        height: 50px;
-        @include spin;
-      }
+      svg { width: 50px; height: 50px; @include spin; }
     }
+    &-expandIcon { width: 10px; height: 10px; }
+    & &-center { text-align: center; }
   }
 </style>

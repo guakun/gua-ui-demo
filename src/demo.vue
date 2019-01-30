@@ -3,7 +3,7 @@
     {{selected}}
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" :selected-items.sync="selected" bordered
-                 :order-by.sync="orderBy" @update:orderBy="x" :loading="loading" height="400px"></gua-table>
+                 :order-by.sync="orderBy" @update:orderBy="x" :loading="loading" :height="400" expand-field="description"></gua-table>
     </div>
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" bordered :striped="false" compact></gua-table>
@@ -27,7 +27,7 @@
         selected: [],
         currentPage: 20,
         columns: [
-          {text: '姓名', field: 'name'},
+          {text: '姓名', field: 'name', width: 100},
           {text: '分数', field: 'score'},
         ],
         orderBy: { // true - 开启排序, 但是不确定 asc desc
@@ -38,7 +38,7 @@
           {id: 1, name: 'guagua', score: 100},
           {id: 2, name: 'lulu', score: 100},
           {id: 3, name: 'yiyi', score: 98},
-          {id: 4, name: 'yinyin', score: 97},
+          {id: 4, name: 'yinyin', score: 97, description: 'sjjclmxcynyn'},
           {id: 5, name: '方方', score: 100},
           {id: 6, name: '圆圆', score: 100},
           {id: 7, name: '美国队长', score: 98},
@@ -50,7 +50,7 @@
           {id: 13, name: '擎天柱', score: 100},
           {id: 14, name: '蜘蛛侠', score: 100},
           {id: 15, name: '蝙蝠侠', score: 98},
-          {id: 16, name: '超人', score: 97},
+          {id: 16, name: '超人', score: 97, description: 'dczvqdxcicrf'},
         ],
         loading: false
       }
@@ -63,7 +63,7 @@
         setTimeout(() => {
           this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
           this.loading = false
-        }, 1600)
+        }, 700)
       }
     }
   }
