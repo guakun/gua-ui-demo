@@ -4,29 +4,30 @@
       <table class="gua-table" :class="{bordered, compact, striped}" ref="table">
         <thead>
         <tr>
-          <th :style="{width: '50px'}" class="gua-table-center"></th>
-          <th :style="{width: '50px'}" class="gua-table-center"><input type="checkbox" @change="onChangeAllItems"
-                                                                       ref="allChecked"
-                                                                       :checked="areAllItemsSelected"/></th>
+          <th v-if="expandField" :style="{width: '50px'}" class="gua-table-center"></th>
+          <th v-if="checkable" :style="{width: '50px'}" class="gua-table-center">
+            <input type="checkbox" @change="onChangeAllItems" ref="allChecked" :checked="areAllItemsSelected"/>
+          </th>
           <th :style="{width: '50px'}" v-if="numberVisible" class="gua-table-center">#</th>
           <th :style="{width: `${column.width}px`}" v-for="column in columns" :key="column.field">
             <div class="gua-table-header">
               {{column.text}}
               <span class="gua-table-sorter" v-if="column.field in orderBy" @click="changeOrderBy(column.field)">
-              <gua-icon name="up" :class="{'active': orderBy[column.field]==='asc'}"></gua-icon>
-              <gua-icon name="down" :class="{'active': orderBy[column.field]==='desc'}"></gua-icon>
-            </span>
+                <gua-icon name="up" :class="{'active': orderBy[column.field]==='asc'}"></gua-icon>
+                <gua-icon name="down" :class="{'active': orderBy[column.field]==='desc'}"></gua-icon>
+              </span>
             </div>
           </th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <template v-for="item,index in dataSource">
           <tr :key="item.id">
-            <td :style="{width: '50px'}" class="gua-table-center">
+            <td v-if="expandField" :style="{width: '50px'}" class="gua-table-center">
               <gua-icon @click="expandItem(item.id)" class="gua-table-expandIcon" name="right"/>
             </td>
-            <td :style="{width: '50px'}" class="gua-table-center">
+            <td v-if="checkable" :style="{width: '50px'}" class="gua-table-center">
               <input type="checkbox" @change="onChangeItem(item, index, $event)"
                      :checked="inSelectedItems(item)"/>
             </td>
@@ -34,9 +35,12 @@
             <template v-for="column in columns">
               <td :style="{width: `${column.width}px`}" :key="column.field">{{item[column.field]}}</td>
             </template>
+            <td>
+              <slot :item="item" gua="18"></slot>
+            </td>
           </tr>
           <tr v-if="inExpandedIds(item.id)" :key="`${item.id}-expand`">
-            <td :colspan="columns.length + 2">
+            <td :colspan="columns.length + expandedCellColSpan">
               {{item[expandField] || '空'}}
             </td>
           </tr>
@@ -103,6 +107,10 @@
       },
       expandField: {
         type: String
+      },
+      checkable: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -128,6 +136,12 @@
           }
         }
         return equal
+      },
+      expandedCellColSpan() {
+        let result = 0
+        if (this.checkable) { result += 1 }
+        if (this.expandField) { result += 1 }
+        return result
       }
     },
     mounted() {

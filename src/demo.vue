@@ -3,7 +3,13 @@
     {{selected}}
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" :selected-items.sync="selected" bordered
-                 :order-by.sync="orderBy" @update:orderBy="x" :loading="loading" :height="400" expand-field="description"></gua-table>
+                 :order-by.sync="orderBy" @update:orderBy="x" :loading="loading" :height="400"
+                 expand-field="description" checkable>
+        <template slot-scope="{item}">
+          <button @click="edit(item)">编辑</button>
+          <button @click="view(item)">查看</button>
+        </template>
+      </gua-table>
     </div>
     <div class="demo">
       <gua-table :columns="columns" :data-source="dataSource" bordered :striped="false" compact></gua-table>
@@ -28,7 +34,7 @@
         currentPage: 20,
         columns: [
           {text: '姓名', field: 'name', width: 100},
-          {text: '分数', field: 'score'},
+          {text: '分数', field: 'score', width: 700},
         ],
         orderBy: { // true - 开启排序, 但是不确定 asc desc
           name: 'asc',
@@ -64,6 +70,12 @@
           this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
           this.loading = false
         }, 700)
+      },
+      edit(item) {
+        alert(`开始编辑${JSON.stringify(item)}`)
+      },
+      view(item) {
+        alert(`开始查看${JSON.stringify(item)}`)
       }
     }
   }
