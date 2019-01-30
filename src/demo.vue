@@ -8,6 +8,7 @@
         <template slot-scope="{item}">
           <button @click="edit(item)">编辑</button>
           <button @click="view(item)">查看</button>
+          <button @click="view(item)">删除</button>
         </template>
       </gua-table>
     </div>
@@ -34,7 +35,7 @@
         currentPage: 20,
         columns: [
           {text: '姓名', field: 'name', width: 100},
-          {text: '分数', field: 'score', width: 700},
+          {text: '分数', field: 'score'},
         ],
         orderBy: { // true - 开启排序, 但是不确定 asc desc
           name: 'asc',
