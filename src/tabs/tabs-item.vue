@@ -5,52 +5,54 @@
 </template>
 
 <script>
-export default {
-  name: 'GuaTabsItem',
-  inject: ['eventBus'],
-  props: { // 1 需要用户 (前端开发者) 传值 入参
-    disabled: {
-      type: Boolean,
-      default: false
+  export default {
+    name: 'GuaTabsItem',
+    inject: ['eventBus'],
+    props: { // 1 需要用户 (前端开发者) 传值 入参
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      name: {
+        type: String | Number,
+        required: true
+      }
     },
-    name: {
-      type: String|Number,
-      required: true
-    }
-  },
-  data () { // 2 不需要用户传值，自身维护值
-    return {
-      active: false
-    }
-  },
-  computed: {
-    classes () {
+    data() { // 2 不需要用户传值，自身维护值
       return {
-        active: this.active,
-        disabled: this.disabled
+        active: false
       }
-    }
-  },
-  created () {
-    if (this.eventBus) {
-      this.eventBus.$on('update:selected', (name) => {
-        this.active = this.name === name
-      })
-    }
-  },
-  methods: {
-    onClick() {
-      if (this.disabled) { return }
+    },
+    computed: {
+      classes() {
+        return {
+          active: this.active,
+          disabled: this.disabled
+        }
+      }
+    },
+    created() {
       if (this.eventBus) {
-        this.eventBus.$emit('update:selected', this.name, this)
+        this.eventBus.$on('update:selected', (name) => {
+          this.active = this.name === name
+        })
       }
-      this.$emit('click', this)
+    },
+    methods: {
+      onClick() {
+        if (this.disabled) { return }
+        if (this.eventBus) {
+          this.eventBus.$emit('update:selected', this.name, this)
+        }
+        this.$emit('click', this)
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
+  @import "var";
+
   .tabs-item {
     flex-shrink: 0;
     padding: 0 2em;
