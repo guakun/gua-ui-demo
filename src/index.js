@@ -1,3 +1,1 @@
-import GuaSticky from './sticky'
-
-export {GuaSticky}
+export {default as sticky} from './sticky'
