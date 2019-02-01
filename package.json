@@ -1,7 +1,7 @@
 {
-  "name": "hello-word",
-  "version": "0.1.0",
-  "private": true,
+  "name": "gua-ui",
+  "version": "0.1.2",
+  "main": "dist/gua.umd.min.js",
   "scripts": {
     "build:lib": "vue-cli-service build --target lib --name gua src/index.js",
     "start": "vue-cli-service serve",
