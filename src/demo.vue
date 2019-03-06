@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; justify-content: center; ">
-    <div style="width: 700px;">
+    <div style="width: 701px;">
       <p>段落1</p>
       <p>段落2</p>
       <p>段落3</p>
